@@ -15,7 +15,7 @@ public interface EmployeeDao {
 
     public void editEmployee(Employee employee, String username);
 
-    public List<Employee> getAllEmployee();
+    public List<Employee> getAllEmployees();
 
     public Employee getEmployeeById(long id);
 

@@ -58,6 +58,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         Employee employee = getEmployeeById(id);
         employee.setUpdateAt(LocalDate.now().toString());
         employee.setUpdateBy(userId);
+        employee.setEnabled(false);
 
         getSession().update(employee);
     }
@@ -81,7 +82,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public List<Employee> getAllEmployee() {
+    public List<Employee> getAllEmployees() {
         List<Employee> employees = getSession().createQuery(getAllEmployees).list();
         for(int i = 0; i < employees.size(); i++){
             if(employees.get(i).isEnabled()==false){
@@ -122,6 +123,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         query.setParameter("username", username);
 
         List<User> users = query.list();
+
         long userId = users.get(0).getId();
         return userId;
     }

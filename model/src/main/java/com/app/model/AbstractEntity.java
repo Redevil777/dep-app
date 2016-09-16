@@ -1,9 +1,6 @@
 package com.app.model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 /**
  * Created by andrei on 15.09.16.
@@ -12,8 +9,8 @@ import javax.persistence.MappedSuperclass;
 public abstract class AbstractEntity {
 
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private boolean enabled;
     @Column(name = "create_at")
     private String createAt;
@@ -24,11 +21,15 @@ public abstract class AbstractEntity {
     @Column(name = "update_by")
     private long updateBy;
 
-    public AbstractEntity(){
-
+    public AbstractEntity() {
     }
 
-    public AbstractEntity(boolean enabled, String createAt, String updateAt, long createBy, long updateBy) {
+    public AbstractEntity(long id){
+        this.id = id;
+    }
+
+    public AbstractEntity(long id, boolean enabled, String createAt, String updateAt, long createBy, long updateBy) {
+        this.id = id;
         this.enabled = enabled;
         this.createAt = createAt;
         this.updateAt = updateAt;
@@ -36,11 +37,11 @@ public abstract class AbstractEntity {
         this.updateBy = updateBy;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

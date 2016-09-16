@@ -1,0 +1,112 @@
+package com.app.dao;
+
+import com.app.model.Employee;
+import com.app.model.EmployeeBuilder;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.transaction.Transactional;
+import java.util.List;
+
+/**
+ * Created by andrei on 17.09.16.
+ */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:/test-spring-config.xml"})
+@Transactional
+public class EmployeeDaoImplTest extends Assert {
+
+    @Autowired
+    private EmployeeDao employeeDao;
+
+
+    @Test
+    public void getAllEmployees(){
+        List<Employee> employees = employeeDao.getAllEmployees();
+        assertNotNull(employees);
+        assertEquals(10, employees.size());
+    }
+
+    @Test
+    public void addEmployeeTest(){
+        List<Employee> employees = employeeDao.getAllEmployees();
+        Employee employee = createNewEmployee();
+
+        employeeDao.addEmployee(employee, "user");
+
+        List<Employee> employeesAfterAdd = employeeDao.getAllEmployees();
+
+        assertEquals(employees.size(), employeesAfterAdd.size()-1);
+    }
+
+    @Test
+    public void deleteEmployeeByIdTest(){
+        List<Employee> employees = employeeDao.getAllEmployees();
+        employeeDao.deleteEmployeeById(1, "user");
+        List<Employee> employeesAfterDel = employeeDao.getAllEmployees();
+
+        assertEquals(employees.size(), employeesAfterDel.size()+1);
+    }
+
+    @Test
+    public void getEmployeeById(){
+        Employee employee = employeeDao.getEmployeeById(2);
+        assertNotNull(employee);
+        assertEquals("Rooney", employee.getLastName());
+    }
+
+    @Test
+    public void editEmployeeTest(){
+        Employee employee = createNewEmployee();
+        employee.setId(1);
+        employeeDao.editEmployee(employee, "user");
+        Employee employeeEdited = employeeDao.getEmployeeById(1);
+
+        assertEquals("test", employeeEdited.getFirstName());
+        assertEquals("test", employeeEdited.getLastName());
+        assertEquals("test", employeeEdited.getMiddleName());
+        assertEquals("1111-11-11", employeeEdited.getBirthday());
+        assertEquals("test", employeeEdited.getEmail());
+        assertEquals("12345", employeeEdited.getPhone());
+        assertEquals("test", employeeEdited.getAddress());
+        assertEquals(123, employeeEdited.getSalary());
+        assertEquals(1, employeeEdited.getDepId());
+    }
+
+    @Test
+    public void getEmployeeByDOF(){
+        List<Employee> employee = employeeDao.getEmployeesByDOF("1974-11-16");
+
+        assertNotNull(employee);
+        assertEquals("1974-11-16", employee.get(0).getBirthday());
+        assertEquals("Poul", employee.get(0).getFirstName());
+    }
+
+    @Test
+    public void getEmployeesBetweenDOB(){
+        List<Employee> employees = employeeDao.getEmployeesBetweenDOF("1984-02-04", "1987-12-20");
+
+        assertNotNull(employees);
+        assertEquals(6, employees.size());
+    }
+
+    public Employee createNewEmployee(){
+        Employee employee = new EmployeeBuilder()
+                .setFirstName("test")
+                .setLastName("test")
+                .setMiddleName("test")
+                .setBirthday("1111-11-11")
+                .setEmail("test")
+                .setPhone("12345")
+                .setAddress("test")
+                .setSalary(123)
+                .setDepId(1)
+                .createEmployee();
+
+        return employee;
+    }
+}

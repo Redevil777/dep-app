@@ -1,6 +1,7 @@
 package com.app.model;
 
 public class EmployeeBuilder {
+    private long id;
     private boolean enabled;
     private String createAt;
     private String updateAt;
@@ -15,6 +16,11 @@ public class EmployeeBuilder {
     private String address;
     private int salary;
     private int depId;
+
+    public EmployeeBuilder setId(long id) {
+        this.id = id;
+        return this;
+    }
 
     public EmployeeBuilder setEnabled(boolean enabled) {
         this.enabled = enabled;
@@ -87,6 +93,6 @@ public class EmployeeBuilder {
     }
 
     public Employee createEmployee() {
-        return new Employee(enabled, createAt, updateAt, createBy, updateBy, firstName, lastName, middleName, birthday, email, phone, address, salary, depId);
+        return new Employee(id, enabled, createAt, updateAt, createBy, updateBy, firstName, lastName, middleName, birthday, email, phone, address, salary, depId);
     }
 }

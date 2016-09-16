@@ -36,8 +36,8 @@ public class Employee extends AbstractEntity{
 
     }
 
-    public Employee(boolean enabled, String createAt, String updateAt, long createBy, long updateBy, String firstName, String lastName, String middleName, String birthday, String email, String phone, String address, int salary, int depId) {
-        super(enabled, createAt, updateAt, createBy, updateBy);
+    public Employee(long id, boolean enabled, String createAt, String updateAt, long createBy, long updateBy, String firstName, String lastName, String middleName, String birthday, String email, String phone, String address, int salary, int depId) {
+        super(id, enabled, createAt, updateAt, createBy, updateBy);
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;

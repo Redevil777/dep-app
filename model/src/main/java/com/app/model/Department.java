@@ -21,8 +21,19 @@ public class Department extends AbstractEntity {
 
     }
 
-    public Department(boolean enabled, String createAt, String updateAt, long createBy, long updateBy, String depName) {
-        super(enabled, createAt, updateAt, createBy, updateBy);
+    public Department(String depName) {
+        this.depName = depName;
+    }
+
+    public Department(long id, String depName){
+        super(id);
+        this.depName = depName;
+    }
+
+
+
+    public Department(long id, boolean enabled, String createAt, String updateAt, long createBy, long updateBy, String depName) {
+        super(id, enabled, createAt, updateAt, createBy, updateBy);
         this.depName = depName;
     }
 
