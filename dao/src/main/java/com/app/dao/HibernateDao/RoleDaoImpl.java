@@ -38,7 +38,7 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public Role getRoleById(int id) {
+    public Role getRoleById(long id) {
         Role role = getSession().load(Role.class, id);
 
         return role;
@@ -61,7 +61,7 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public void deleteRole(int id) {
+    public void deleteRole(long id) {
         Role role = getRoleById(id);
         getSession().delete(role);
     }

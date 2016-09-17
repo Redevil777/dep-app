@@ -43,7 +43,7 @@ public class PermissionDaoImpl implements PermissionDao {
     }
 
     @Override
-    public Permission getPermissionById(int id) {
+    public Permission getPermissionById(long id) {
         return getSession().load(Permission.class, id);
     }
 
@@ -67,7 +67,7 @@ public class PermissionDaoImpl implements PermissionDao {
     }
 
     @Override
-    public void deletePermission(int id) {
+    public void deletePermission(long id) {
         Permission permission = getPermissionById(id);
         getSession().delete(permission);
     }

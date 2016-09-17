@@ -28,15 +28,15 @@ public class Employee extends AbstractEntity{
     private String phone;
     @Column(name = "address")
     private String address;
-    private int salary;
+    private long salary;
     @Column(name = "dep_id")
-    private int depId;
+    private long depId;
 
     public Employee(){
 
     }
 
-    public Employee(long id, boolean enabled, String createAt, String updateAt, long createBy, long updateBy, String firstName, String lastName, String middleName, String birthday, String email, String phone, String address, int salary, int depId) {
+    public Employee(long id, boolean enabled, String createAt, String updateAt, long createBy, long updateBy, String firstName, String lastName, String middleName, String birthday, String email, String phone, String address, long salary, long depId) {
         super(id, enabled, createAt, updateAt, createBy, updateBy);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -105,19 +105,19 @@ public class Employee extends AbstractEntity{
         this.address = address;
     }
 
-    public int getSalary() {
+    public long getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(long salary) {
         this.salary = salary;
     }
 
-    public int getDepId() {
+    public long getDepId() {
         return depId;
     }
 
-    public void setDepId(int depId) {
+    public void setDepId(long depId) {
         this.depId = depId;
     }
 }

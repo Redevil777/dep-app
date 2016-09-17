@@ -80,7 +80,7 @@ public class UserDaoImpl implements UserDao {
     public void deleteUserById(long id) {
         User user = getUserById(id);
 
-        user.setEnadled(false);
+        user.setEnabled(false);
         getSession().update(user);
     }
 

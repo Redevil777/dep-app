@@ -1,5 +1,6 @@
 package com.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -14,17 +15,19 @@ public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(name = "rolename")
     private String roleName;
 
+    @JsonIgnore
     @OneToMany
     @JoinTable(name = "role_permissions",
                 joinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")},
                 inverseJoinColumns = {@JoinColumn(name = "permission_id", referencedColumnName = "id")})
     private Set<Permission> permissions;
 
+    @JsonIgnore
     @OneToMany
     @JoinTable(name = "user_roles",
                 joinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")},
@@ -45,11 +48,11 @@ public class Role implements GrantedAuthority {
         this.userRoles = userRoles;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -77,6 +80,7 @@ public class Role implements GrantedAuthority {
         this.userRoles = userRoles;
     }
 
+    @JsonIgnore
     @Override
     public String getAuthority() {
         return getRoleName();

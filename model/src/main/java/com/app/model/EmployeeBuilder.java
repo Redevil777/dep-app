@@ -14,8 +14,8 @@ public class EmployeeBuilder {
     private String email;
     private String phone;
     private String address;
-    private int salary;
-    private int depId;
+    private long salary;
+    private long depId;
 
     public EmployeeBuilder setId(long id) {
         this.id = id;
@@ -82,12 +82,12 @@ public class EmployeeBuilder {
         return this;
     }
 
-    public EmployeeBuilder setSalary(int salary) {
+    public EmployeeBuilder setSalary(long salary) {
         this.salary = salary;
         return this;
     }
 
-    public EmployeeBuilder setDepId(int depId) {
+    public EmployeeBuilder setDepId(long depId) {
         this.depId = depId;
         return this;
     }
