@@ -10,11 +10,11 @@ import java.util.List;
 public interface RoleDao {
     public void addRole(Role role);
 
-    public Role getRole(int id);
+    public Role getRoleById(int id);
 
-    public Role getRole(String roleName);
+    public Role getRoleByName(String roleName);
 
-    public void updateRole(Role role);
+    public void editRole(Role role);
 
     public void deleteRole(int id);
 

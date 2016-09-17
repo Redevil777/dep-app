@@ -38,14 +38,14 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public Role getRole(int id) {
+    public Role getRoleById(int id) {
         Role role = getSession().load(Role.class, id);
 
         return role;
     }
 
     @Override
-    public Role getRole(String roleName) {
+    public Role getRoleByName(String roleName) {
         Query query = getSession().createQuery(getRoleByRoleName);
         query.setParameter("rolename",roleName);
 
@@ -54,15 +54,15 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public void updateRole(Role role) {
-        Role roleEdit = getRole(role.getId());
+    public void editRole(Role role) {
+        Role roleEdit = getRoleById(role.getId());
         roleEdit.setRoleName(role.getRoleName());
         getSession().update(roleEdit);
     }
 
     @Override
     public void deleteRole(int id) {
-        Role role = getRole(id);
+        Role role = getRoleById(id);
         getSession().delete(role);
     }
 

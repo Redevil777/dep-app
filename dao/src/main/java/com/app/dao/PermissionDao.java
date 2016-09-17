@@ -11,11 +11,11 @@ public interface PermissionDao {
 
     public void addPermission(Permission permission);
 
-    public Permission getPermission(int id);
+    public Permission getPermissionById(int id);
 
-    public Permission getPermission(String permissionName) throws Exception;
+    public Permission getPermissionByName(String permissionName) throws Exception;
 
-    public void updatePermission(Permission permission);
+    public void editPermission(Permission permission);
 
     public void deletePermission(int id);
 

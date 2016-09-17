@@ -13,7 +13,7 @@ import java.util.Set;
 public class Permission implements GrantedAuthority{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "PERMISSIONNAME")
@@ -55,6 +55,10 @@ public class Permission implements GrantedAuthority{
     }
 
     public Permission() {
+    }
+
+    public Permission(String permissionName){
+        this.permissionName = permissionName;
     }
 
     public Permission(String permissionName, Set<Role> permRoles) {

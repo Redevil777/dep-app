@@ -19,8 +19,8 @@ import java.util.Set;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     private String username;
 
@@ -37,6 +37,13 @@ public class User implements UserDetails {
     public User() {
     }
 
+    public User(long id, String username, String password, boolean enabled){
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
+    }
+
     public User(String username, String password, boolean enabled, Set<Role> roles) {
         this.username = username;
         this.password = password;
@@ -44,11 +51,11 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

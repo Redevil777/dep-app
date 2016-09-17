@@ -79,6 +79,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         employeeEdit.setSalary(employee.getSalary());
         employeeEdit.setDepId(employee.getDepId());
 
+        getSession().update(employeeEdit);
     }
 
     @Override
@@ -117,7 +118,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
 
-    /*check load with username*/
     public long getUserId(String username){
         Query query = getSession().createQuery(getUserId);
         query.setParameter("username", username);

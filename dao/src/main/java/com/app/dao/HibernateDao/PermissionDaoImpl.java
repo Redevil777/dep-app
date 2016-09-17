@@ -35,7 +35,7 @@ public class PermissionDaoImpl implements PermissionDao {
     @Override
     public void addPermission(Permission permission) {
         try {
-            Permission permissionCheck = getPermission(permission.getPermissionName());
+            Permission permissionCheck = getPermissionByName(permission.getPermissionName());
 
         } catch (Exception e) {
             getSession().save(permission);
@@ -43,12 +43,12 @@ public class PermissionDaoImpl implements PermissionDao {
     }
 
     @Override
-    public Permission getPermission(int id) {
+    public Permission getPermissionById(int id) {
         return getSession().load(Permission.class, id);
     }
 
     @Override
-    public Permission getPermission(String permissionName) throws Exception {
+    public Permission getPermissionByName(String permissionName) throws Exception {
         Query query = getSession().createQuery(getPermissionByPerName);
         query.setParameter("permissionname", permissionName);
         if(query.list().size()==0){
@@ -60,15 +60,15 @@ public class PermissionDaoImpl implements PermissionDao {
     }
 
     @Override
-    public void updatePermission(Permission permission) {
-        Permission permissionEdit = getPermission(permission.getId());
-        permission.setPermissionName(permission.getPermissionName());
+    public void editPermission(Permission permission) {
+        Permission permissionEdit = getPermissionById(permission.getId());
+        permissionEdit.setPermissionName(permission.getPermissionName());
         getSession().update(permissionEdit);
     }
 
     @Override
     public void deletePermission(int id) {
-        Permission permission = getPermission(id);
+        Permission permission = getPermissionById(id);
         getSession().delete(permission);
     }
 
