@@ -56,7 +56,7 @@ public class UserDaoImplTest extends Assert {
     @Test
     public void editUserTest(){
         User user = new User(1, "test", "test", true);
-        userDao.editUser(user);
+        userDao.editUser(user, "ROLE_ADMIN");
         User userEdited = userDao.getUserById(1);
 
         assertEquals(user.getUsername(), userEdited.getUsername());

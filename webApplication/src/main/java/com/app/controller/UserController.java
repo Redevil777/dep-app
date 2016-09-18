@@ -136,14 +136,14 @@ public class UserController {
 
 
             Set<Role> roles = user.getRoles();
-
+            List<String> roleName = new ArrayList<>();
             ArrayList<Long> roleId = new ArrayList<>();
             for (Role qwe:roles){
+               roleName.add(qwe.getRoleName());
                 roleId.add(qwe.getId());
             }
-
             view.addObject("editUser", user);
-            view.addObject("roleId", roleId);
+            view.addObject("roleName", roleName.get(0));
             view.addObject("roles", role);
         } catch (Exception e){
 
@@ -157,8 +157,8 @@ public class UserController {
     public ModelAndView saveEditUser(RedirectAttributes redirectAttributes,
                                            @RequestParam("id")   String   id,
                                            @RequestParam("username") String name,
-                                           @RequestParam("password") String password/*,
-                                           @RequestParam("role") String role*/){
+                                           @RequestParam("password") String password,
+                                           @RequestParam("roles") String role){
         ModelAndView view = new ModelAndView("redirect:/user/all");
 
         RestTemplate restTemplate = new RestTemplate();
@@ -168,7 +168,7 @@ public class UserController {
             map.add("id", id);
             map.add("username", name);
             map.add("password", password);
-           // map.add("role", role);
+            map.add("role", role);
             restTemplate.postForObject(USER_REST + "/edit", map, String.class);
 
             redirectAttributes.addFlashAttribute("message", "User edited");

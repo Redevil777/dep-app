@@ -76,7 +76,8 @@ public class UserService {
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public ResponseEntity editUser(@RequestParam("id") Long id,
                                    @RequestParam("username") String name,
-                                   @RequestParam("password") String password){
+                                   @RequestParam("password") String password,
+                                   @RequestParam("role") String role){
 
         User user = new User();
         user.setId(id);
@@ -84,7 +85,7 @@ public class UserService {
         user.setPassword(password);
 
         try {
-            userDao.editUser(user);
+            userDao.editUser(user, role);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity("Check input data!", HttpStatus.BAD_REQUEST);

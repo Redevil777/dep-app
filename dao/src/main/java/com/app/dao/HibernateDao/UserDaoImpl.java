@@ -33,6 +33,9 @@ public class UserDaoImpl implements UserDao {
     @Value("from User where username = :username")
     private String getUserByUsername;
 
+    @Value("update user_roles set ROLE_ID =:roleId where USER_ID=:userId")
+    private String updateUserRoles;
+
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -85,11 +88,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void editUser(User user) {
+    public void editUser(User user, String role) {
         User userEdit = getUserById(user.getId());
         userEdit.setUsername(user.getUsername());
         userEdit.setPassword(user.getPassword());
         getSession().update(userEdit);
+        updateUserRoles(user.getId(), role);
     }
 
     @Override
@@ -117,5 +121,14 @@ public class UserDaoImpl implements UserDao {
         query.setParameter("username", username);
         List<User> users = query.list();
         return users.get(0);
+    }
+
+    public void updateUserRoles(long userId, String roleName){
+        Role role = roleDao.getRoleByName(roleName);
+        long roleId = role.getId();
+        Query query = getSession().createSQLQuery(updateUserRoles);
+        query.setParameter("roleId", roleId);
+        query.setParameter("userId", userId);
+        query.executeUpdate();
     }
 }

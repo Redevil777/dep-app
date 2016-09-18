@@ -13,7 +13,7 @@ public interface UserDao {
 
     public void deleteUserById(long id);
 
-    public void editUser(User user);
+    public void editUser(User user, String role);
 
     public List<User> getAllUsers();
 

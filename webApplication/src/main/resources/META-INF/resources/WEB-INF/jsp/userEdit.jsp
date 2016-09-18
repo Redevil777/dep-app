@@ -32,8 +32,44 @@
                 <td><form:input path="password"/></td>
             </tr>
 
-                <td><form:label path="roles">Role:</form:label></td>
-                <td><form:input path="roles"/></td>
+                <td>Role:</td>
+               <td>
+                   <form:select path="roles">
+                       <c:forEach items="${roles}" var="roles">
+                           <c:choose>
+                               <c:when test="${roles.roleName==roleName}">
+                                   <option value="${roles.roleName}" selected>
+                                       <c:out value="${roles.roleName}"/>
+                                   </option>
+                               </c:when>
+                               <c:otherwise>
+                                   <option value="${roles.roleName}">
+                                       <c:out value="${roles.roleName}"/>
+                                   </option>
+                               </c:otherwise>
+                           </c:choose>
+                       </c:forEach>
+                   </form:select>
+               </td>
+
+
+
+            <%--<form:select path="depId">
+                <c:forEach items="${departments}" var="department">
+                    <c:choose>
+                        <c:when test="${department.id==employee.depId}">
+                            <option value="${department.id}" selected>
+                                <c:out value="${department.depName}" />
+                            </option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${department.id}">
+                                <c:out value="${department.depName}" />
+                            </option>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </form:select>--%>
             </tr>
         </table>
         <input type="submit" value="Save" />
