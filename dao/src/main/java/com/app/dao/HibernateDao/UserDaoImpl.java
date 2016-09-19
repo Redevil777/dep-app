@@ -69,11 +69,8 @@ public class UserDaoImpl implements UserDao {
                 for(int q = 0; q<roleId.size();q++){
                     if(roleId.get(q).getRoleName().equals(roles.get(i))){
                         SQLQuery query = getSession().createSQLQuery(addUserRoles);
-                        System.out.println("qwe");
-                        System.out.println("qwe" + addedUser.getId());
                         query.setParameter("user_id", addedUser.getId());
                         query.setParameter("role_id", String.valueOf(roleId.get(q).getId()));
-                        query.executeUpdate();
                     }
                 }
             }

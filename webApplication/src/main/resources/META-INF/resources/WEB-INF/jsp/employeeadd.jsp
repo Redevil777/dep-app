@@ -13,9 +13,12 @@
 <html>
 <head>
     <title>Employee add</title>
+    <style>
+        <%@include file="css/styles.css" %>
+    </style>
 </head>
 <body>
-
+<%@include file="head.jsp"%>
 <h2>Add employee</h2>
     <c:url var="addUrl" value="/employee/add" />
 

@@ -13,8 +13,12 @@
 <html>
 <head>
     <title>User add</title>
+    <style>
+        <%@include file="css/styles.css" %>
+    </style>
 </head>
 <body>
+<%@include file="head.jsp"%>
 <h2>Add User</h2><br>
     <c:url var="addUrl" value="/user/add" />
 

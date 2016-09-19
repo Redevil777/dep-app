@@ -13,9 +13,13 @@
 <html>
 <head>
     <title>all users</title>
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <style>
+        <%@include file="css/styles.css" %>
+    </style>
 </head>
 <body>
-
+<%@include file="head.jsp"%>
 <script>
     var show;
     function hidetxt(type){
@@ -34,7 +38,7 @@
     <br>
     <a onclick="hidetxt('addUser'); return false;" href="#" rel="nofollow">Add new user</a>
     <br><br>
-    <div style="float: left;">
+    <div id="" style="float: left;">
         <table style="border: 1px solid; width: 500px; text-align:center" border="1">
             <tr>
                 <td>№</td>
@@ -71,6 +75,16 @@
                     <td><form:input path="username"/></td><tr>
                     <td><form:label path="password">Password:</form:label></td>
                     <td><form:password path="password"/></td><tr>
+                    <td>Role name</td>
+                    <td>
+                        <form:select path="roles">
+                            <c:forEach items="${roles11}" var="role">
+                                <option value="${role.roleName}">
+                                    <c:out value="${role.roleName}" />
+                                </option>
+                            </c:forEach>
+                        </form:select>
+                    </td>
                 </tr>
             </table>
 

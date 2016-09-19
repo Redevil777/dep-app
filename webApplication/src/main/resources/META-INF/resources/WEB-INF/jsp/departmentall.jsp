@@ -13,8 +13,12 @@
 <html>
 <head>
     <title>all department</title>
+    <style>
+        <%@include file="css/styles.css" %>
+    </style>
 </head>
 <body>
+<%@include file="head.jsp"%>
 <script>
     var show;
     function hidetxt(type){

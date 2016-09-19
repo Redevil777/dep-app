@@ -12,8 +12,12 @@
 <html>
 <head>
     <title>Department edit</title>
+    <style>
+        <%@include file="css/styles.css" %>
+    </style>
 </head>
 <body>
+<%@include file="head.jsp"%>
     <c:url var="saveUrl" value="/department/edit" />
     <form:form modelAttribute="department" method="POST" action="${saveUrl}">
         <table>

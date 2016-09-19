@@ -40,6 +40,7 @@ public class UserController {
         try {
             User[] users = restTemplate.getForObject(USER_REST + "/all", User[].class);
 
+            Role[] roles = restTemplate.getForObject(ROLE_REST + "/all", Role[].class);
            /* List<Set<Role>> roles = new ArrayList<>();
             for (int i = 0; i < users.length; i++){
                 roles.add(users[i].getRoles());
@@ -52,6 +53,7 @@ public class UserController {
             }
             System.out.println(roles.get(0));*/
             view.addObject("users", users);
+            view.addObject("roles11", roles);
             view.addObject("user", new User());
 
         } catch (Exception e){
@@ -87,7 +89,6 @@ public class UserController {
         ArrayList<String> roles = new ArrayList<>();
 
         for (Role q: role){
-            System.out.println(q.getRoleName());
             roles.add(q.getRoleName());
         }
 

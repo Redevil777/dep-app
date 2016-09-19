@@ -16,42 +16,48 @@
 <html>
 <head>
     <title>Home page</title>
+    <style>
+        <%@include file="css/styles.css" %>
+    </style>
 </head>
 <body>
+<%@include file="head.jsp"%>
 <h2>Home page</h2>
 
 <br>
-<sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_HR')">
-    <ser:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_HR')">
-        <li><a href="<spring:url value='/department/add' ></spring:url>"
-               title="department-add">Add department</a></li><br>
-        <li><a href="<spring:url value='/employee/add' ></spring:url>"
-               title="employee-add">Add employee</a></li><br>
-        <sec:authorize access="hasRole('ROLE_ADMIN')">
-            <li><a href="<spring:url value='/user/add' ></spring:url>"
-                   title="employee-all">Add user</a></li><br>
-            <li><a href="<spring:url value='/user/all'></spring:url> "
-                   title="user-all">All users</a></li><br>
-        </sec:authorize>
-    </ser:authorize>
+<div id="menu">
+    <sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_HR')">
+        <ser:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_HR')">
+            <li><a href="<spring:url value='/department/add' ></spring:url>"
+                   title="department-add">Add department</a></li><br>
+            <li><a href="<spring:url value='/employee/add' ></spring:url>"
+                   title="employee-add">Add employee</a></li><br>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <li><a href="<spring:url value='/user/add' ></spring:url>"
+                       title="employee-all">Add user</a></li><br>
+                <li><a href="<spring:url value='/user/all'></spring:url> "
+                       title="user-all">All users</a></li><br>
+            </sec:authorize>
+        </ser:authorize>
 
-    <li><a href="<spring:url value='/department/all' ></spring:url>"
-           title="department-all">Show all departments</a></li><br>
-    <li><a href="<spring:url value='/employee/all' ></spring:url>"
-           title="employee-all">Show all employees</a></li>
+        <li><a href="<spring:url value='/department/all' ></spring:url>"
+               title="department-all">Show all departments</a></li><br>
+        <li><a href="<spring:url value='/employee/all' ></spring:url>"
+               title="employee-all">Show all employees</a></li>
 
-</sec:authorize>
-<sec:authorize access="isAnonymous()">
-    <li><a href="<spring:url value='/login' ></spring:url>" title="login"> Log in
-    </a> </li>
-</sec:authorize>
-<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_HR', 'ROLE_USER', 'ROLE_GUEST')">
-    <form:form method="post" action="/logout">
-        <br>
-        <input type="submit" value="Log out">
-    </form:form>
-</sec:authorize>
+    </sec:authorize>
+    <sec:authorize access="isAnonymous()">
+        <li><a href="<spring:url value='/login' ></spring:url>" title="login"> Log in
+        </a> </li>
+    </sec:authorize>
+    <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_HR', 'ROLE_USER', 'ROLE_GUEST')">
+        <form:form method="post" action="/logout">
+            <br>
+            <input type="submit" value="Log out">
+        </form:form>
+    </sec:authorize>
 
 
+</div>
 </body>
 </html>

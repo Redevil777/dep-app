@@ -10,9 +10,13 @@
 <html>
 <head>
     <title>Employee by date</title>
+    <style>
+        <%@include file="css/styles.css" %>
+    </style>
 </head>
 
 <body>
+<%@include file="head.jsp"%>
 <h2>Employee by date</h2>
 <br>
 <br>

@@ -11,9 +11,12 @@
 <html>
 <head>
     <title>Employee search</title>
+    <style>
+        <%@include file="css/styles.css" %>
+    </style>
 </head>
 <body>
-
+<%@include file="head.jsp"%>
 <h2>You choose date between ${from} and ${to} </h2>
 
 <table style="border: 1px solid; width: 500px; text-align:center" border="1">

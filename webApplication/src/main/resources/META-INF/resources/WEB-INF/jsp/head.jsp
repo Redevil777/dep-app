@@ -15,6 +15,18 @@
 
 </head>
 <body>
-<h1>QWE</h1>
+<div id="head">
+    <nav>
+        <ul class="top-menu">
+            <li><a href="/">HOME</a></li>
+            <li><a href="/employee/all">All employees</a></li>
+            <li><a href="/department/all">all departments</a></li>
+            <li><a href="/user/all">all users</a></li>
+            <li><a href="/employee/add">add employee</a></li>
+            <li><a href="/department/add">add department</a></li>
+            <li><a href="/user/add">add user</a></li>
+        </ul>
+    </nav>
+</div>
 </body>
 </html>

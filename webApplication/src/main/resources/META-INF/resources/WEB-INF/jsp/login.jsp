@@ -12,6 +12,9 @@ To change this template use File | Settings | File Templates.
 <html>
 <head>
     <title>Login</title>
+    <style>
+        <%@include file="css/styles.css" %>
+    </style>
 </head>
 <body>
 <c:url var="addUrl" value="/login" />

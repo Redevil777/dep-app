@@ -11,6 +11,9 @@
 <html>
 <head>
     <title>Employee from select department</title>
+    <style>
+        <%@include file="css/styles.css" %>
+    </style>
 </head>
 <body>
 

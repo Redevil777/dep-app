@@ -1,6 +1,7 @@
 package com.app.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "roles")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Role implements GrantedAuthority {
 
     @Id
@@ -35,6 +37,10 @@ public class Role implements GrantedAuthority {
     private Set<Permission> permissions;
 
     public Role() {
+    }
+
+    public Role(String roleName){
+        this.roleName = roleName;
     }
 
     public Role(int id, String roleName){
