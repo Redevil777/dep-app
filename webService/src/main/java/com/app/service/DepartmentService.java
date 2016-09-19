@@ -1,9 +1,11 @@
 package com.app.service;
 
 import com.app.dao.DepartmentDao;
+import com.app.dao.HibernateDao.DepartmentDaoImpl;
 import com.app.model.Department;
 import com.app.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ import java.util.List;
  */
 @Service
 @RequestMapping(value = "/department")
+@ComponentScan(basePackageClasses = DepartmentDaoImpl.class)
 public class DepartmentService {
 
     @Autowired
@@ -48,6 +51,10 @@ public class DepartmentService {
     public ResponseEntity<Department> getDepartmentById(@PathVariable("id") Long id) {
         try {
             Department department = departmentDao.getDepartmentById(id);
+            System.out.println(department);
+             if(department.getDepName()==null) {
+                 throw new Exception();
+             }
             return new ResponseEntity(department, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity("Department not found with id=" + id + ", error: " + e.getMessage(), HttpStatus.NOT_FOUND);
@@ -70,14 +77,16 @@ public class DepartmentService {
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public ResponseEntity deleteDepartment(@PathVariable("id") Long id,
+    public ResponseEntity deleteDepartment(@PathVariable("id") long id,
                                            @RequestParam("userName") String userName){
+        System.out.println("qwe");
+        System.out.println(userName);
         try {
             String message = departmentDao.deleteDepartmentById(id, userName);
             if(message.equals("neOk")) throw new Exception();
             return new ResponseEntity("", HttpStatus.OK);
         } catch(Exception e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 

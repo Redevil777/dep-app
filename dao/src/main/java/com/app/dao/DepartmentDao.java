@@ -2,6 +2,8 @@ package com.app.dao;
 
 import com.app.model.Department;
 import com.app.model.Employee;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 

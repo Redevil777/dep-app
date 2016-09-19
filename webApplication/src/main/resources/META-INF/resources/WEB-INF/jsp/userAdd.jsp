@@ -42,8 +42,8 @@
                         <td>
                             <form:select path="roles">
                                 <c:forEach items="${roles11}" var="role">
-                                    <option value="${role.rolename}">
-                                        <c:out value="${role.rolename}" />
+                                    <option value="${role.roleName}">
+                                        <c:out value="${role.roleName}" />
                                     </option>
                                 </c:forEach>
                             </form:select>

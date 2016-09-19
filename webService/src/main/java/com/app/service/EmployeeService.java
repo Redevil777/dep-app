@@ -76,6 +76,9 @@ public class EmployeeService {
 
         try {
             Employee employee = employeeDao.getEmployeeById(id);
+            if(employee.getFirstName()==null){
+                throw  new Exception();
+            }
             return new ResponseEntity(employee, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity("Employee not found with id=" + id + ", error: " + e.getMessage(),

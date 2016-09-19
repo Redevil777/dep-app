@@ -53,6 +53,7 @@ public class UserController {
             System.out.println(roles.get(0));*/
             view.addObject("users", users);
             view.addObject("user", new User());
+
         } catch (Exception e){
         }
         return view;
@@ -86,6 +87,7 @@ public class UserController {
         ArrayList<String> roles = new ArrayList<>();
 
         for (Role q: role){
+            System.out.println(q.getRoleName());
             roles.add(q.getRoleName());
         }
 

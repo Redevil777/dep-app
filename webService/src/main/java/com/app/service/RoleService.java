@@ -24,6 +24,7 @@ public class RoleService {
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ResponseEntity<List<Role>> getRoles() {
         List<Role> roles = roleDAO.getRoles();
+        System.out.println(roles.get(0));
         return new ResponseEntity<>(roles, HttpStatus.OK);
     }
 }

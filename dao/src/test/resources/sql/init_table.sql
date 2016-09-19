@@ -1,7 +1,7 @@
-insert into users (id, username, password, enabled) VALUES (1, 'user','pass', 1);
+insert into users (id, username, password, enabled) VALUES (1, 'user','pass', 1), (2, 'admin', 'admin', 1);
 
 
-INSERT into roles (id, rolename) VALUES (1, 'ROLE_ADMIN');
+INSERT into roles (id, rolename) VALUES (1, 'ROLE_ADMIN'), (2, 'ROLE_USER');
 
 INSERT into user_roles(user_id, role_id) VALUES (1, 1);
 

@@ -56,5 +56,10 @@ CREATE TABLE permissions(
     permissionname VARCHAR(50)
 );
 
+CREATE TABLE role_permissions(
+    role_id int,
+    permission_id int
+);
+
 
 

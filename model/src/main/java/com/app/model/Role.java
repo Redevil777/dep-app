@@ -22,17 +22,17 @@ public class Role implements GrantedAuthority {
 
     @JsonIgnore
     @OneToMany
+    @JoinTable(name = "user_roles",
+            joinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
+    private Set<User> userRoles;
+
+    @JsonIgnore
+    @OneToMany
     @JoinTable(name = "role_permissions",
                 joinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")},
                 inverseJoinColumns = {@JoinColumn(name = "permission_id", referencedColumnName = "id")})
     private Set<Permission> permissions;
-
-    @JsonIgnore
-    @OneToMany
-    @JoinTable(name = "user_roles",
-                joinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")},
-                inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
-    private Set<User> userRoles;
 
     public Role() {
     }
@@ -42,10 +42,10 @@ public class Role implements GrantedAuthority {
         this.roleName = roleName;
     }
 
-    public Role(String roleName, Set<Permission> permissions, Set<User> userRoles) {
+    public Role(String roleName, Set<User> userRoles, Set<Permission> permissions) {
         this.roleName = roleName;
-        this.permissions = permissions;
         this.userRoles = userRoles;
+        this.permissions = permissions;
     }
 
     public long getId() {

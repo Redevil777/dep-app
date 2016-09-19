@@ -36,7 +36,7 @@ public class UserDaoImplTest extends Assert {
         User user = new User(2, "test", "test", true);
         List<User> users = userDao.getAllUsers();
         ArrayList<String> list = new ArrayList<>();
-        String role = "ROLE_ADMIN";
+        String role = "[ ROLE_ADMIN ]";
         list.add(role);
         userDao.addUser(user, list);
         List<User> usersAfterAdd = userDao.getAllUsers();

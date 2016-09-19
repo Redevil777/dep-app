@@ -37,6 +37,9 @@ public class UserService {
     public ResponseEntity<User> getDepartmentById(@PathVariable("id") int id) {
         try {
             User user= userDao.getUserById(id);
+            if(user.getUsername()==null){
+                throw new Exception();
+            }
             return new ResponseEntity(user, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity("Department not found with id=" + id + ", error: " + e.getMessage(), HttpStatus.NOT_FOUND);
@@ -69,7 +72,7 @@ public class UserService {
             userDao.deleteUserById(id);
             return new ResponseEntity("", HttpStatus.OK);
         } catch(Exception e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 

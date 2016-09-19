@@ -1,6 +1,6 @@
 package com.app;
 
-import com.app.model.Department;
+import com.app.model.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,13 +17,17 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Created by andrei on 17.09.16.
+ * Created by andrey on 19.09.16.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:test-spring-config.xml")
@@ -32,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:sql/create_table.sql"),
         @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:sql/init_table.sql") })
 @Transactional
-public class DepartmentServiceTest {
+public class UserServiceTest {
 
     @Autowired
     private WebApplicationContext context;
@@ -44,25 +48,43 @@ public class DepartmentServiceTest {
         this.mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
     }
 
-
-
     @Test
-    public void getAllDepartmentsTest() throws Exception {
-
+    public void getAllUsersTest() throws Exception {
         this.mvc.perform(
-                get("/department/all")
-                        .accept(MediaType.APPLICATION_JSON)
+                get("/user/all")
+                .accept(MediaType.APPLICATION_JSON)
         )
                 .andDo(print())
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void addDepartmentTest() throws Exception {
+    public void getUserByIdTest() throws Exception {
         this.mvc.perform(
-                post("/department/add")
-                .param("depName","test")
-                .param("userName", "user")
+                get("/user/id/1")
+                .accept(MediaType.APPLICATION_JSON)
+        )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void getUserWithWrongIdTest() throws Exception {
+        this.mvc.perform(
+                get("/user/id/-1")
+                .accept(MediaType.APPLICATION_JSON)
+        )
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void addUserTest() throws Exception {
+        this.mvc.perform(
+                post("/user/add")
+                .param("username","test")
+                .param("password", "test")
+                .param("role", "ROLE_ADMIN")
                 .accept(MediaType.APPLICATION_JSON)
         )
                 .andDo(print())
@@ -70,55 +92,13 @@ public class DepartmentServiceTest {
     }
 
     @Test
-    public void addDepartmentWithNullNameTest() throws Exception {
-
-        Department department = new Department();
-        department.setDepName(null);
+    public void addUserWithIncorrectFormTest() throws Exception {
+        User user = new User(1, null, null, true);
         this.mvc.perform(
-                post("/department/add")
-                        .param("depName", department.getDepName())
-                        .param("userName", "user")
-        )
-                .andDo(print())
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    public void getDepartmentByIdTest() throws Exception {
-        this.mvc.perform(
-                get("/department/id/"+1)
-                .accept(MediaType.APPLICATION_JSON)
-        )
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    public void getDepartmentByWrongIdTest() throws Exception {
-        this.mvc.perform(
-                get("/department/id/"+-1)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isNotFound());
-    }
-
-    @Test
-    public void deleteDepartmentTest() throws Exception {
-        this.mvc.perform(
-                post("/department/delete/"+5)
-                        .param("userName", "user")
-                .accept(MediaType.APPLICATION_JSON)
-        )
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    public void deleteDepartmentWithIncorrectIdTest() throws Exception {
-
-        this.mvc.perform(
-                post("/department/delete/" + -1)
-                .param("userName", "user")
+                post("/user/add")
+                .param("username", user.getUsername())
+                .param("password", user.getPassword())
+                .param("role", "ROLE_ADMIN")
                 .accept(MediaType.APPLICATION_JSON)
         )
                 .andDo(print())
@@ -126,24 +106,34 @@ public class DepartmentServiceTest {
     }
 
     @Test
-    public void testUpdateDepartment() throws Exception {
-
+    public void deleteUserTest() throws Exception {
         this.mvc.perform(
-                post("/department/edit/")
-                        .param("id", String.valueOf(1))
-                        .param("depName", "change")
-                        .param("userName", "user")
+                delete("/user/delete/1")
+                .accept(MediaType.APPLICATION_JSON)
         )
                 .andDo(print())
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void testGetEmployeesBySelectedDepartment() throws Exception {
-
+    public void deleteUserWithWrongIdTest() throws Exception {
         this.mvc.perform(
-                get("/department/employees/" + 1)
-                        .accept(MediaType.APPLICATION_JSON)
+                delete("/user/delete/-1")
+                .accept(MediaType.APPLICATION_JSON)
+        )
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void editUserTest() throws Exception {
+        this.mvc.perform(
+                post("/user/edit")
+                .param("id", "1")
+                .param("username", "test")
+                .param("password", "test")
+                .param("role", "ROLE_ADMIN")
+                .accept(MediaType.APPLICATION_JSON)
         )
                 .andDo(print())
                 .andExpect(status().isOk());
