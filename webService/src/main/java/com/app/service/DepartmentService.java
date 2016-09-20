@@ -21,7 +21,6 @@ import java.util.List;
  */
 @Service
 @RequestMapping(value = "/department")
-@ComponentScan(basePackageClasses = DepartmentDaoImpl.class)
 public class DepartmentService {
 
     @Autowired
@@ -79,8 +78,6 @@ public class DepartmentService {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public ResponseEntity deleteDepartment(@PathVariable("id") long id,
                                            @RequestParam("userName") String userName){
-        System.out.println("qwe");
-        System.out.println(userName);
         try {
             String message = departmentDao.deleteDepartmentById(id, userName);
             if(message.equals("neOk")) throw new Exception();

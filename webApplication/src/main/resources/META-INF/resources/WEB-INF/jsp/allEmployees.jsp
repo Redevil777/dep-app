@@ -37,9 +37,8 @@
     }
 </script>
 
-<%@include file="head.jsp"%>
-
-<div id="center">
+<div>
+    <%@include file="head.jsp"%>
     <c:choose>
         <c:when test="${empty employees}">
             There are currently no employees in the list.

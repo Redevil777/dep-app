@@ -2,9 +2,7 @@ package com.app.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by andrei on 15.09.16.
@@ -13,6 +11,12 @@ import javax.persistence.Table;
 @Table(name = "department")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Department extends AbstractEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ManyToOne
+    @JoinColumn(name = "dep_id")
+    private long id;
 
     @Column(name = "dep_name")
     private String depName;
@@ -35,6 +39,16 @@ public class Department extends AbstractEntity {
     public Department(long id, boolean enabled, String createAt, String updateAt, long createBy, long updateBy, String depName) {
         super(id, enabled, createAt, updateAt, createBy, updateBy);
         this.depName = depName;
+    }
+
+    @Override
+    public long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getDepName() {

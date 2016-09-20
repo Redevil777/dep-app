@@ -2,6 +2,7 @@ package com.app.dao.HibernateDao;
 
 import com.app.dao.EmployeeDao;
 import com.app.model.Employee;
+import com.app.model.Task;
 import com.app.model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -32,6 +33,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Value("from Employee where birthday between :from and :to")
     private String getEmployeesBetweenDOF;
+
+    @Value("from Task where emp_id = :emp_id")
+    private String getTasks;
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -117,6 +121,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
         return employees;
     }
 
+    @Override
+    public List<Task> getTasksByEmployee(long id) {
+        Query query = getSession().createQuery(getTasks);
+        query.setParameter("emp_id", id);
+        List<Task> tasks = query.list();
+        return tasks;
+    }
 
     public long getUserId(String username){
         Query query = getSession().createQuery(getUserId);

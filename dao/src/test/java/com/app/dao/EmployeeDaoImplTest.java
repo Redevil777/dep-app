@@ -2,6 +2,7 @@ package com.app.dao;
 
 import com.app.model.Employee;
 import com.app.model.EmployeeBuilder;
+import com.app.model.Task;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -92,6 +93,14 @@ public class EmployeeDaoImplTest extends Assert {
 
         assertNotNull(employees);
         assertEquals(6, employees.size());
+    }
+
+    @Test
+    public void getTasksByEmployee(){
+        List<Task> tasks = employeeDao.getTasksByEmployee(1);
+        assertNotNull(tasks);
+        assertEquals(1, tasks.size());
+        assertEquals("task 1", tasks.get(0).getTitle());
     }
 
     public Employee createNewEmployee(){

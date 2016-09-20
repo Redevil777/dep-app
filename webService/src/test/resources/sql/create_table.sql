@@ -5,6 +5,7 @@ DROP TABLE role_permissions if EXISTS ;
 drop table permissions if EXISTS ;
 drop table roles if EXISTS ;
 drop table users if EXISTS ;
+DROP TABLE tasks if EXISTS ;
 
 CREATE TABLE users (
     id int IDENTITY ,
@@ -59,6 +60,20 @@ CREATE TABLE permissions(
 CREATE TABLE role_permissions(
     role_id int,
     permission_id int
+);
+
+CREATE TABLE tasks(
+    id int IDENTITY,
+    title VARCHAR(30),
+    description VARCHAR(300),
+    start_task DATE,
+    end_task DATE,
+    emp_id INT,
+    create_at DATE,
+    update_at DATE,
+    enabled boolean,
+    create_by int,
+    update_by int
 );
 
 

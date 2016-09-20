@@ -201,6 +201,15 @@ public class EmployeeServiceTest {
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    public void getTaskByEmployeeTest() throws Exception {
+        this.mvc.perform(
+                get("/employee/task/1")
+                .accept(MediaType.APPLICATION_JSON)
+        )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
 
     public Employee createEmployee(){
         Employee employee = new EmployeeBuilder()

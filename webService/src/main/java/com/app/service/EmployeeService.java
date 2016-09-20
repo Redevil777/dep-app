@@ -3,6 +3,7 @@ package com.app.service;
 import com.app.dao.EmployeeDao;
 import com.app.model.Employee;
 import com.app.model.EmployeeBuilder;
+import com.app.model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -156,6 +157,16 @@ public class EmployeeService {
             return new ResponseEntity(employees, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/task/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Task>> getTaskByEmployee(@PathVariable("id") long id){
+        try {
+            List<Task> tasks = employeeDao.getTasksByEmployee(id);
+            return new ResponseEntity(tasks, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity("error", HttpStatus.NOT_FOUND);
         }
     }
 }

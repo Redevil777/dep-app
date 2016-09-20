@@ -21,12 +21,9 @@
     </style>
 </head>
 <body>
-<%@include file="head.jsp"%>
-<h2>Home page</h2>
-
-<br>
 <div id="menu">
     <sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_HR')">
+        <%@include file="head.jsp"%>
         <ser:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_HR')">
             <li><a href="<spring:url value='/department/add' ></spring:url>"
                    title="department-add">Add department</a></li><br>

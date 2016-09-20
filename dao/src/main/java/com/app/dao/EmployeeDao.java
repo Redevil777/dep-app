@@ -1,6 +1,7 @@
 package com.app.dao;
 
 import com.app.model.Employee;
+import com.app.model.Task;
 
 import java.util.List;
 
@@ -22,4 +23,6 @@ public interface EmployeeDao {
     public List<Employee> getEmployeesByDOF(String date);
 
     public List<Employee> getEmployeesBetweenDOF(String from, String to);
+
+    public List<Task> getTasksByEmployee(long id);
 }

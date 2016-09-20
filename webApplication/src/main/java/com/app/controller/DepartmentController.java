@@ -163,7 +163,6 @@ public class DepartmentController {
         } catch (Exception e) {
             view.addObject("message", "Not found any employees.");
         }
-
         return view;
     }
 }
