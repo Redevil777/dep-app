@@ -2,6 +2,7 @@ package com.app.service;
 
 import com.app.dao.TaskDao;
 import com.app.model.Task;
+import com.app.model.TaskType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +26,13 @@ public class TaskService {
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ResponseEntity<List<Task>> getAllTask(){
-        List<Task> tasks = taskDao.getAllTasks();
+        try {
+            List<Task> tasks = taskDao.getAllTasks();
+            return new ResponseEntity(tasks, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity("not found any tasks", HttpStatus.NOT_FOUND);
+        }
 
-        return new ResponseEntity(tasks, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
@@ -54,14 +59,24 @@ public class TaskService {
         }
     }
 
+    @RequestMapping(value = "/tasks/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Task>> getTasksByEmp(@PathVariable("id") long id){
+        try {
+            List<Task> tasks = taskDao.getTasksByEmp(id);
+            return new ResponseEntity(tasks, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity("error", HttpStatus.NOT_FOUND);
+        }
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity addTask(@RequestParam("title") String title,
+                                  @RequestParam("type") TaskType taskType,
                                   @RequestParam("description") String description,
-                                  @RequestParam("start_task") String start_task,
-                                  @RequestParam("end_task") String end_task,
+                                  @RequestParam("date_when") String date_when,
                                   @RequestParam("emp_id") long emp_id,
                                   @RequestParam("username") String username){
-        Task task = new Task(title, description, start_task, end_task, emp_id);
+        Task task = new Task(title, taskType, description, date_when, emp_id, false);
         try {
             taskDao.addTask(task, username);
             return new ResponseEntity("new task added", HttpStatus.OK);
@@ -73,14 +88,13 @@ public class TaskService {
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public ResponseEntity editTask(@RequestParam("id") long id,
                                    @RequestParam("title") String title,
+                                   @RequestParam("type") TaskType taskType,
                                    @RequestParam("description") String description,
-                                   @RequestParam("start_task") String start_task,
                                    @RequestParam("end_task") String end_task,
                                    @RequestParam("emp_id") long emp_id,
                                    @RequestParam("username") String username){
-        Task task = new Task(title, description, start_task, end_task, emp_id);
+        Task task = new Task(title, taskType, description, end_task, emp_id, false);
         task.setId(id);
-
         try {
             taskDao.editTask(task, username);
             return new ResponseEntity("edited task with id = " + id, HttpStatus.OK);

@@ -13,4 +13,5 @@ public interface TaskDao {
     public void editTask(Task task, String username);
     public List<Task> getAllTasks();
     public Task getTaskById(long id);
+    public List<Task> getTasksByEmp(long id);
 }

@@ -14,35 +14,40 @@ public class Task extends AbstractEntity {
 
     @Column(name = "title")
     private String title;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "task_type")
+    private TaskType taskType;
     @Column(name = "description")
     private String description;
-    @Column(name = "start_task")
-    private String startTask;
-    @Column(name = "end_task")
-    private String endTask;
+    @Column(name = "dateWhen")
+    private String dateWhen;
     @Column(name = "emp_id")
     private long empId;
+    @Column(name = "complete")
+    private boolean complete;
 
     public Task(){
 
     }
 
-    public Task(String title, String description, String startTask, String endTask, long empId){
+    public Task(String title, TaskType taskType, String description, String dateWhen, long empId, boolean complete) {
         this.title = title;
+        this.taskType = taskType;
         this.description = description;
-        this.startTask = startTask;
-        this.endTask = endTask;
+        this.dateWhen = dateWhen;
         this.empId = empId;
+        this.complete = complete;
     }
 
     public Task(long id, boolean enabled, String createAt, String updateAt, long createBy, long updateBy,
-                String title, String description, String startTask, String endTask, long empId) {
+                String title, TaskType taskType, String description, String dateWhen, long empId, boolean complete) {
         super(id, enabled, createAt, updateAt, createBy, updateBy);
         this.title = title;
+        this.taskType = taskType;
         this.description = description;
-        this.startTask = startTask;
-        this.endTask = endTask;
+        this.dateWhen = dateWhen;
         this.empId = empId;
+        this.complete = complete;
     }
 
     public String getTitle() {
@@ -61,20 +66,20 @@ public class Task extends AbstractEntity {
         this.description = description;
     }
 
-    public String getStartTask() {
-        return startTask;
+    public TaskType getTaskType() {
+        return taskType;
     }
 
-    public void setStartTask(String startTask) {
-        this.startTask = startTask;
+    public void setTaskType(TaskType taskType) {
+        this.taskType = taskType;
     }
 
-    public String getEndTask() {
-        return endTask;
+    public String getDateWhen() {
+        return dateWhen;
     }
 
-    public void setEndTask(String endTask) {
-        this.endTask = endTask;
+    public void setDateWhen(String dateWhen) {
+        this.dateWhen = dateWhen;
     }
 
     public long getEmpId() {
@@ -83,5 +88,13 @@ public class Task extends AbstractEntity {
 
     public void setEmpId(long empId) {
         this.empId = empId;
+    }
+
+    public boolean isComplete() {
+        return complete;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
     }
 }

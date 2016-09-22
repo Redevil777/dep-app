@@ -2,6 +2,7 @@ package com.app.dao;
 
 import com.app.model.Employee;
 import com.app.model.Task;
+import com.app.model.TaskType;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,12 +29,12 @@ public class TaskDaoImplTest  extends Assert{
         List<Task> tasks = taskDao.getAllTasks();
 
         assertNotNull(tasks);
-        assertEquals(1, tasks.size());
+        assertEquals(2, tasks.size());
     }
 
     @Test
     public void addTaskTest(){
-        Task task = new Task("new task", "test", "2016-05-05", "2016-06-06", 2);
+        Task task = new Task("new task", TaskType.CALL, "test", "2016-06-06", 2, false);
         List<Task> tasksBeforeAdd = taskDao.getAllTasks();
         taskDao.addTask(task, "user");
         List<Task> tasksAfterAdd = taskDao.getAllTasks();
@@ -60,12 +61,20 @@ public class TaskDaoImplTest  extends Assert{
 
     @Test
     public void editTaskTest(){
-        Task task = new Task("new task", "test", "2016-05-05", "2016-06-06", 2);
+        Task task = new Task("new task", TaskType.CALL, "test", "2016-06-06", 2, false);
         task.setId(1);
         taskDao.editTask(task, "user");
 
         Task taskEdited = taskDao.getTaskById(1);
 
         assertEquals("new task", taskEdited.getTitle());
+    }
+
+    @Test
+    public void getTasksByEmpTest(){
+        List<Task> tasks = taskDao.getTasksByEmp(1);
+
+        assertNotNull(tasks);
+        assertEquals(2, tasks.size());
     }
 }

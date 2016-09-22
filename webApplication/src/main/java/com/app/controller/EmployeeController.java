@@ -2,6 +2,7 @@ package com.app.controller;
 
 import com.app.model.Department;
 import com.app.model.Employee;
+import com.app.model.EmployeeBuilder;
 import com.app.model.User;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -42,7 +43,7 @@ public class EmployeeController {
             User[] users = restTemplate.getForObject(USER_REST + "/all", User[].class);
             view.addObject("departments", departments);
             view.addObject("employees", employees);
-            view.addObject("employee", new Employee());
+            view.addObject("employee", new EmployeeBuilder().createEmployee());
             view.addObject("users", users);
         } catch (Exception e) {
             view.addObject("error", "Not found any employees.");
@@ -60,7 +61,7 @@ public class EmployeeController {
         RestTemplate restTemplate = new RestTemplate();
 
 
-        view.addObject("employees", new Employee());
+        view.addObject("employees", new EmployeeBuilder().createEmployee());
         try {
             Department[] departments = restTemplate.getForObject(DEPARTMENT_REST + "/all", Department[].class);
             view.addObject("departments", departments);
@@ -132,7 +133,7 @@ public class EmployeeController {
 
             redirectAttributes.addFlashAttribute("message", "employee deleted");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Can't delete employee whith id = " + id);
+            redirectAttributes.addFlashAttribute("error", "Can't delete employee with id = " + id);
         }
 
         return view;

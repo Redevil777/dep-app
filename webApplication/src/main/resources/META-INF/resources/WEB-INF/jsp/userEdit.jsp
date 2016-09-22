@@ -55,25 +55,6 @@
                        </c:forEach>
                    </form:select>
                </td>
-
-
-
-            <%--<form:select path="depId">
-                <c:forEach items="${departments}" var="department">
-                    <c:choose>
-                        <c:when test="${department.id==employee.depId}">
-                            <option value="${department.id}" selected>
-                                <c:out value="${department.depName}" />
-                            </option>
-                        </c:when>
-                        <c:otherwise>
-                            <option value="${department.id}">
-                                <c:out value="${department.depName}" />
-                            </option>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-            </form:select>--%>
             </tr>
         </table>
         <input type="submit" value="Save" />

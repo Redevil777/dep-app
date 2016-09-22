@@ -93,6 +93,7 @@ public class EmployeeBuilder {
     }
 
     public Employee createEmployee() {
-        return new Employee(id, enabled, createAt, updateAt, createBy, updateBy, firstName, lastName, middleName, birthday, email, phone, address, salary, depId);
+        return new Employee(id, enabled, createAt, updateAt, createBy, updateBy, firstName, lastName, middleName,
+                birthday, email, phone, address, salary, depId);
     }
 }

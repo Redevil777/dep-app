@@ -53,7 +53,6 @@
             <h3>All employees</h3>
             <div style="float: left;">
                 <table style="border: 1px solid; width: 500px; text-align:center" border="1">
-
                     <tr>
                         <td>№</td>
                         <td>First name</td>
@@ -67,7 +66,7 @@
                             <td></td>
                             <td></td>
                         </sec:authorize>
-
+                        <td>Task</td>
                     </tr>
 
 
@@ -75,6 +74,7 @@
 
                         <c:url var="deleteUrl" value="/employee/delete/${employee.id}" />
                         <c:url var="editUrl" value="/employee/edit/${employee.id}" />
+                        <c:url var="showTask" value="/task/title/${employee.id}"/>
                         <tr>
                             <td><c:out value="${employee.id}" /></td>
                             <td><c:out value="${employee.firstName}" /></td>
@@ -101,8 +101,11 @@
                                 </td>
                             </sec:authorize>
                             <td>
-                                <a onclick="hidetxt(${employee.id}); return false;" href="#" rel="nofollow">Show details</a>
+                                <a onclick="hidetxt(${employee.id}); return false;" href="#" rel="nofollow">show details</a>
 
+                            </td>
+                            <td>
+                                <a href="${showTask}">show task</a>
                             </td>
                         </tr>
                     </c:forEach>

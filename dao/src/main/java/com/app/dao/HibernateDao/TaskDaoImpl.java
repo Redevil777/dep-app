@@ -1,7 +1,6 @@
 package com.app.dao.HibernateDao;
 
 import com.app.dao.TaskDao;
-import com.app.model.Employee;
 import com.app.model.Task;
 import com.app.model.User;
 import org.hibernate.Query;
@@ -30,6 +29,9 @@ public class TaskDaoImpl implements TaskDao {
 
     @Value("from Employee where id=:id")
     private String getEmployeesByTask;
+
+    @Value("from Task where emp_id = :id")
+    private String getTaskByEmp;
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -65,9 +67,10 @@ public class TaskDaoImpl implements TaskDao {
         long userId = getUserById(username);
         Task editTask = getTaskById(task.getId());
         editTask.setTitle(task.getTitle());
+        editTask.setComplete(task.isComplete());
         editTask.setDescription(task.getDescription());
-        editTask.setStartTask(task.getStartTask());
-        editTask.setEndTask(task.getEndTask());
+        editTask.setTaskType(task.getTaskType());
+        editTask.setDateWhen(task.getDateWhen());
         editTask.setEmpId(task.getEmpId());
         editTask.setUpdateBy(userId);
         editTask.setUpdateAt(LocalDate.now().toString());
@@ -90,6 +93,14 @@ public class TaskDaoImpl implements TaskDao {
     @Override
     public Task getTaskById(long id) {
         return getSession().load(Task.class, id);
+    }
+
+    @Override
+    public List<Task> getTasksByEmp(long id) {
+        Query query = getSession().createQuery(getTaskByEmp);
+        query.setParameter("id", id);
+        List<Task> tasks = query.list();
+        return tasks;
     }
 
     public long getUserById(String username){
