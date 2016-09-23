@@ -30,7 +30,7 @@ public class Department extends AbstractEntity {
     }
 
     public Department(long id, String depName){
-        super(id);
+        this.id = id;
         this.depName = depName;
     }
 

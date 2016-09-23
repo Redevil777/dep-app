@@ -50,7 +50,6 @@ public class DepartmentService {
     public ResponseEntity<Department> getDepartmentById(@PathVariable("id") Long id) {
         try {
             Department department = departmentDao.getDepartmentById(id);
-            System.out.println(department);
              if(department.getDepName()==null) {
                  throw new Exception();
              }

@@ -32,11 +32,12 @@
     <table style="border: 1px solid; width: 500px; text-align:center" border="1">
         <tr>
             <td>№</td>
+            <td>Employee</td>
             <td>Type</td>
             <td>Title</td>
             <td>Description</td>
             <td>Date</td>
-            <td>Employee</td>
+            <td>Priority</td>
             <td>Complete</td>
             <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <td>Delete</td>
@@ -48,10 +49,6 @@
             <c:url var="editUrl" value="/task/edit/${task.id}" />
             <tr>
                 <td><c:out value="${task.id}"/></td>
-                <td><c:out value="${task.taskType}"/></td>
-                <td><c:out value="${task.title}"/></td>
-                <td><c:out value="${task.description}"/></td>
-                <td><c:out value="${task.dateWhen}"/></td>
                 <c:forEach items="${employees}" var="employee">
                     <c:choose>
                         <c:when test="${employee.id == task.empId}">
@@ -59,14 +56,12 @@
                         </c:when>
                     </c:choose>
                 </c:forEach>
-                <c:choose>
-                    <c:when test="${task.complete==false}">
-                        <td><c:out value="Not yet"/></td>
-                    </c:when>
-                    <c:otherwise>
-                        <td><c:out value="Yes"/> </td>
-                    </c:otherwise>
-                </c:choose>
+                <td><c:out value="${task.taskType}"/></td>
+                <td><c:out value="${task.title}"/></td>
+                <td><c:out value="${task.description}"/></td>
+                <td><c:out value="${task.dateWhen}"/></td>
+                <td><c:out value="${task.priority}"/></td>
+                <td><c:out value="${task.complete}"/></td>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                         <td>
                             <a href="${editUrl}">Edit</a>

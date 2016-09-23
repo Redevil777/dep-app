@@ -27,7 +27,7 @@ public class RoleDaoImplTest extends Assert {
         List<Role> roles = roleDao.getRoles();
 
         assertNotNull(roles);
-        assertEquals(1, roles.size());
+        assertEquals(2, roles.size());
     }
 
     @Test

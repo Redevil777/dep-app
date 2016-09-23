@@ -41,17 +41,7 @@ public class UserController {
             User[] users = restTemplate.getForObject(USER_REST + "/all", User[].class);
 
             Role[] roles = restTemplate.getForObject(ROLE_REST + "/all", Role[].class);
-           /* List<Set<Role>> roles = new ArrayList<>();
-            for (int i = 0; i < users.length; i++){
-                roles.add(users[i].getRoles());
-            }
-            for (int q = 0; q < roles.size(); q++){
-                Set<Role> roles1 = roles.get(q);
-                for (Role qwe:roles1){
-                    System.out.println(qwe.getRoleName());
-                }
-            }
-            System.out.println(roles.get(0));*/
+
             view.addObject("users", users);
             view.addObject("roles11", roles);
             view.addObject("user", new User());

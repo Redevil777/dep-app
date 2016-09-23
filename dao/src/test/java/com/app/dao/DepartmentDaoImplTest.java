@@ -41,7 +41,7 @@ public class DepartmentDaoImplTest extends Assert {
     public void deleteDepartmentByIdTest(){
         departmentDao.addDepartment(new Department("qwe"), "user");
         List<Department> departments = departmentDao.getAllDepartments();
-        departmentDao.deleteDepartmentById(4l, "user");
+        departmentDao.deleteDepartmentById(5l, "user");
         List<Department> departmentsAfterDel = departmentDao.getAllDepartments();
 
         assertEquals(departments.size(), departmentsAfterDel.size()+1);

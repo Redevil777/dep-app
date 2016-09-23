@@ -1,6 +1,7 @@
 package com.app.dao.HibernateDao;
 
 import com.app.dao.TaskDao;
+import com.app.model.Complete;
 import com.app.model.Task;
 import com.app.model.User;
 import org.hibernate.Query;
@@ -49,6 +50,7 @@ public class TaskDaoImpl implements TaskDao {
         task.setUpdateBy(userId);
         task.setCreateAt(LocalDate.now().toString());
         task.setUpdateAt(LocalDate.now().toString());
+        task.setComplete(Complete.NOT);
         getSession().save(task);
     }
 
@@ -67,11 +69,12 @@ public class TaskDaoImpl implements TaskDao {
         long userId = getUserById(username);
         Task editTask = getTaskById(task.getId());
         editTask.setTitle(task.getTitle());
-        editTask.setComplete(task.isComplete());
+        editTask.setComplete(task.getComplete());
         editTask.setDescription(task.getDescription());
         editTask.setTaskType(task.getTaskType());
         editTask.setDateWhen(task.getDateWhen());
         editTask.setEmpId(task.getEmpId());
+        editTask.setPriority(task.getPriority());
         editTask.setUpdateBy(userId);
         editTask.setUpdateAt(LocalDate.now().toString());
 

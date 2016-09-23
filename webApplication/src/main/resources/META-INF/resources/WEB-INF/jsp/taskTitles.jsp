@@ -62,15 +62,12 @@
                             <td><c:out value="${task.dateWhen}"/></td>
                         </tr>
                         <tr>
+                            <td>Priority:</td>
+                            <td><c:out value="${task.priority}"/></td>
+                        </tr>
+                        <tr>
                             <td>Complete:</td>
-                            <c:choose>
-                                <c:when test="${task.complete==false}">
-                                    <td><c:out value="Not yet"/></td>
-                                </c:when>
-                                <c:otherwise>
-                                    <td><c:out value="Yes"/></td>
-                                </c:otherwise>
-                            </c:choose>
+                            <td><c:out value="${task.complete}"/></td>
                         </tr>
                     </table>
                 </div>

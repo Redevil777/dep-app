@@ -1,6 +1,8 @@
 package com.app.service;
 
 import com.app.dao.TaskDao;
+import com.app.model.Complete;
+import com.app.model.Priority;
 import com.app.model.Task;
 import com.app.model.TaskType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,37 +71,56 @@ public class TaskService {
         }
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ResponseEntity addTask(@RequestParam("title") String title,
-                                  @RequestParam("type") TaskType taskType,
-                                  @RequestParam("description") String description,
-                                  @RequestParam("date_when") String date_when,
-                                  @RequestParam("emp_id") long emp_id,
-                                  @RequestParam("username") String username){
-        Task task = new Task(title, taskType, description, date_when, emp_id, false);
-        try {
-            taskDao.addTask(task, username);
-            return new ResponseEntity("new task added", HttpStatus.OK);
-        } catch (Exception e){
-            return new ResponseEntity("error", HttpStatus.BAD_REQUEST);
-        }
-    }
-
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public ResponseEntity editTask(@RequestParam("id") long id,
                                    @RequestParam("title") String title,
                                    @RequestParam("type") TaskType taskType,
                                    @RequestParam("description") String description,
-                                   @RequestParam("end_task") String end_task,
-                                   @RequestParam("emp_id") long emp_id,
+                                   @RequestParam("dateWhen") String dateWhen,
+                                   @RequestParam("empId") long empId,
+                                   @RequestParam("priority") Priority priority,
+                                   @RequestParam("complete") Complete complete,
                                    @RequestParam("username") String username){
-        Task task = new Task(title, taskType, description, end_task, emp_id, false);
+        Task task = new Task(title, taskType, description, dateWhen, empId, priority, complete);
         task.setId(id);
         try {
             taskDao.editTask(task, username);
             return new ResponseEntity("edited task with id = " + id, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity("error", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public ResponseEntity addTask(@RequestParam("id") long id,
+                                  @RequestParam("title") String title,
+                                  @RequestParam("type") String type,
+                                  @RequestParam("description") String description,
+                                  @RequestParam("dateWhen") String dateWhen,
+                                  @RequestParam("priority") String priority,
+                                  @RequestParam("username") String username){
+
+        Task task = new Task();
+        task.setTitle(title);
+        task.setDescription(description);
+        task.setDateWhen(dateWhen);
+        task.setEmpId(id);
+        for(TaskType t:TaskType.values()){
+            if(t.toString().equals(type)){
+                task.setTaskType(t);
+            }
+        }
+        for (Priority p: Priority.values()){
+            if(p.toString().equals(priority)){
+                task.setPriority(p);
+            }
+        }
+
+        try {
+            taskDao.addTask(task, username);
+            return new ResponseEntity("", HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }

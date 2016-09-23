@@ -66,6 +66,9 @@
                             <td></td>
                             <td></td>
                         </sec:authorize>
+                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                            <td></td>
+                        </sec:authorize>
                         <td>Task</td>
                     </tr>
 
@@ -75,6 +78,7 @@
                         <c:url var="deleteUrl" value="/employee/delete/${employee.id}" />
                         <c:url var="editUrl" value="/employee/edit/${employee.id}" />
                         <c:url var="showTask" value="/task/title/${employee.id}"/>
+                        <c:url var="addTask" value="/task/add/${employee.id}"/>
                         <tr>
                             <td><c:out value="${employee.id}" /></td>
                             <td><c:out value="${employee.firstName}" /></td>
@@ -107,6 +111,9 @@
                             <td>
                                 <a href="${showTask}">show task</a>
                             </td>
+                            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                <td><a href="${addTask}">add task</a> </td>
+                            </sec:authorize>
                         </tr>
                     </c:forEach>
                 </table>

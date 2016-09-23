@@ -13,4 +13,4 @@ INSERT INTO employee (id, first_name, last_name, middle_name, birthday, email, p
 
 INSERT INTO permissions (id, permissionname) VALUES (1, 'add_department'), (2, 'add_employee'), (3, 'add_user');
 
-INSERT INTO tasks (id, title, task_type, description, dateWhen, emp_id, complete, create_at, update_at, enabled, create_by, update_by) VALUES (1, 'task 1', 'CALL', 'need complete module dao', '2016-09-21', 1, 0, '1980-01-01','1980-01-01', 1, 1,1), (2, 'task 2', 'OTHER', 'need complete module dao', '2016-09-21', 1, 0, '1980-01-01','1980-01-01', 1, 1,1);
+INSERT INTO tasks (id, title, task_type, description, date_when, emp_id, priority, complete, create_at, update_at, enabled, create_by, update_by) VALUES (1, 'task 1', 'CALL', 'need complete module dao', '2016-09-21', 1, 'HIGH', 'NOT', '1980-01-01','1980-01-01', 1, 1,1), (2, 'task 2', 'OTHER', 'need complete module dao', '2016-09-21', 1, 'LOW', 'NOT', '1980-01-01','1980-01-01', 1, 1,1);

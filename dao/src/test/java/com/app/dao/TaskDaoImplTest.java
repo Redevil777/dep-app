@@ -1,8 +1,6 @@
 package com.app.dao;
 
-import com.app.model.Employee;
-import com.app.model.Task;
-import com.app.model.TaskType;
+import com.app.model.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +32,7 @@ public class TaskDaoImplTest  extends Assert{
 
     @Test
     public void addTaskTest(){
-        Task task = new Task("new task", TaskType.CALL, "test", "2016-06-06", 2, false);
+        Task task = new Task("new task", TaskType.CALL, "test", "2016-06-06", 2, Priority.HIGH, Complete.NOT);
         List<Task> tasksBeforeAdd = taskDao.getAllTasks();
         taskDao.addTask(task, "user");
         List<Task> tasksAfterAdd = taskDao.getAllTasks();
@@ -61,7 +59,7 @@ public class TaskDaoImplTest  extends Assert{
 
     @Test
     public void editTaskTest(){
-        Task task = new Task("new task", TaskType.CALL, "test", "2016-06-06", 2, false);
+        Task task = new Task("new task", TaskType.CALL, "test", "2016-06-06", 2, Priority.MEDIUM, Complete.COMPLETE);
         task.setId(1);
         taskDao.editTask(task, "user");
 

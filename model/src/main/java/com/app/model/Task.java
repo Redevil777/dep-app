@@ -19,34 +19,40 @@ public class Task extends AbstractEntity {
     private TaskType taskType;
     @Column(name = "description")
     private String description;
-    @Column(name = "dateWhen")
+    @Column(name = "date_when")
     private String dateWhen;
     @Column(name = "emp_id")
     private long empId;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "priority")
+    private Priority priority;
+    @Enumerated(EnumType.STRING)
     @Column(name = "complete")
-    private boolean complete;
+    private Complete complete;
 
     public Task(){
 
     }
 
-    public Task(String title, TaskType taskType, String description, String dateWhen, long empId, boolean complete) {
+    public Task(String title, TaskType taskType, String description, String dateWhen, long empId, Priority priority, Complete complete) {
         this.title = title;
         this.taskType = taskType;
         this.description = description;
         this.dateWhen = dateWhen;
         this.empId = empId;
+        this.priority = priority;
         this.complete = complete;
     }
 
     public Task(long id, boolean enabled, String createAt, String updateAt, long createBy, long updateBy,
-                String title, TaskType taskType, String description, String dateWhen, long empId, boolean complete) {
+                String title, TaskType taskType, String description, String dateWhen, long empId, Priority priority, Complete complete) {
         super(id, enabled, createAt, updateAt, createBy, updateBy);
         this.title = title;
         this.taskType = taskType;
         this.description = description;
         this.dateWhen = dateWhen;
         this.empId = empId;
+        this.priority = priority;
         this.complete = complete;
     }
 
@@ -90,11 +96,19 @@ public class Task extends AbstractEntity {
         this.empId = empId;
     }
 
-    public boolean isComplete() {
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    public Complete getComplete() {
         return complete;
     }
 
-    public void setComplete(boolean complete) {
+    public void setComplete(Complete complete) {
         this.complete = complete;
     }
 }

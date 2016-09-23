@@ -26,6 +26,7 @@
             <li><a href="/employee/add">add employee</a></li>
             <li><a href="/department/add">add department</a></li>
             <li><a href="/user/add">add user</a></li>
+            <li><a href="/logout">log out</a></li>
         </ul>
     </nav>
 </div>

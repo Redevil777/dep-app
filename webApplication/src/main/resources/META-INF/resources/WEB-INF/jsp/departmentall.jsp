@@ -83,10 +83,7 @@
                                 <td><a href="${editUrl}">Edit</a> </td>
                                 <td><a href="${deleteUrl}">Delete</a></td>
                             </sec:authorize>
-                            <td>
-                                <a onclick="hidetxt(${empDep}); return false;" href="#" rel="nofollow">Show employees</a>
-                            </td>
-                            <%--<td><a href="${empDep}">Show employees</a> </td>--%>
+                            <td><a href="${empDep}">Show employees</a> </td>
                             <td>
                                 <a onclick="hidetxt(${department.id}); return false;" href="#" rel="nofollow">Show details</a>
                             </td>

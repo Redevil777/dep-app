@@ -28,7 +28,7 @@ public class UserDaoImplTest extends Assert {
         List<User> users = userDao.getAllUsers();
 
         assertNotNull(users);
-        assertEquals(1, users.size());
+        assertEquals(2, users.size());
     }
 
     @Test

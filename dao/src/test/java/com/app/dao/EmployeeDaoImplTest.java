@@ -99,7 +99,7 @@ public class EmployeeDaoImplTest extends Assert {
     public void getTasksByEmployee(){
         List<Task> tasks = employeeDao.getTasksByEmployee(1);
         assertNotNull(tasks);
-        assertEquals(1, tasks.size());
+        assertEquals(2, tasks.size());
         assertEquals("task 1", tasks.get(0).getTitle());
     }
 
