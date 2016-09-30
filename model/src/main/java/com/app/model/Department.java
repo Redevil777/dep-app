@@ -3,6 +3,8 @@ package com.app.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Created by andrei on 15.09.16.
@@ -36,7 +38,7 @@ public class Department extends AbstractEntity {
 
 
 
-    public Department(long id, boolean enabled, String createAt, String updateAt, long createBy, long updateBy, String depName) {
+    public Department(long id, boolean enabled, LocalDateTime createAt, LocalDateTime updateAt, long createBy, long updateBy, String depName) {
         super(id, enabled, createAt, updateAt, createBy, updateBy);
         this.depName = depName;
     }

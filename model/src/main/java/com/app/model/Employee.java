@@ -1,8 +1,12 @@
 package com.app.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
@@ -19,8 +23,9 @@ public class Employee extends AbstractEntity{
     private String lastName;
     @Column(name = "middle_name")
     private String middleName;
+    @JsonFormat(pattern="yyyy-MM-dd")
     @Column(name = "birthday")
-    private String birthday;
+    private LocalDate birthday;
     @Column(name = "email")
     private String email;
     @Column(name = "phone")
@@ -35,7 +40,7 @@ public class Employee extends AbstractEntity{
 
     }
 
-    public Employee(long id, boolean enabled, String createAt, String updateAt, long createBy, long updateBy, String firstName, String lastName, String middleName, String birthday, String email, String phone, String address, long salary, long depId) {
+    public Employee(long id, boolean enabled, LocalDateTime createAt, LocalDateTime updateAt, long createBy, long updateBy, String firstName, String lastName, String middleName, LocalDate birthday, String email, String phone, String address, long salary, long depId) {
         super(id, enabled, createAt, updateAt, createBy, updateBy);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -72,11 +77,11 @@ public class Employee extends AbstractEntity{
         this.middleName = middleName;
     }
 
-    public String getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 

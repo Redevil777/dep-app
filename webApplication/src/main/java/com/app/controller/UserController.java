@@ -33,7 +33,7 @@ public class UserController {
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('All_USERS_GET')")
     public ModelAndView getAllUsers(){
-        ModelAndView view = new ModelAndView("userAll");
+        ModelAndView view = new ModelAndView("user");
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -43,9 +43,8 @@ public class UserController {
             Role[] roles = restTemplate.getForObject(ROLE_REST + "/all", Role[].class);
 
             view.addObject("users", users);
-            view.addObject("roles11", roles);
+            view.addObject("roles", roles);
             view.addObject("user", new User());
-
         } catch (Exception e){
         }
         return view;

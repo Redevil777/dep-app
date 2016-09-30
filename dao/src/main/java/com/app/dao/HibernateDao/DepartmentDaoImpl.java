@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -45,8 +46,8 @@ public class DepartmentDaoImpl implements DepartmentDao {
     public void addDepartment(Department department, String username) {
         long userId = getUserById(username);
 
-        department.setCreateAt(LocalDate.now().toString());
-        department.setUpdateAt(LocalDate.now().toString());
+        department.setCreateAt(LocalDateTime.now());
+        department.setUpdateAt(LocalDateTime.now());
         department.setEnabled(true);
         department.setCreateBy(userId);
         department.setUpdateBy(userId);
@@ -61,7 +62,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
         List<Employee> employees = getEmployeesBySelectedDepartment(id);
         if(employees.size()==0){
             department.setUpdateBy(userId);
-            department.setUpdateAt(LocalDate.now().toString());
+            department.setUpdateAt(LocalDateTime.now());
             department.setEnabled(false);
             getSession().update(department);
             return "Ok";
@@ -74,7 +75,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     public void editDepartment(Department department, String username) {
         long userId = getUserById(username);
         Department departmentEdit = getDepartmentById(department.getId());
-        departmentEdit.setUpdateAt(LocalDate.now().toString());
+        departmentEdit.setUpdateAt(LocalDateTime.now());
         departmentEdit.setDepName(department.getDepName());
         departmentEdit.setUpdateBy(userId);
         getSession().update(departmentEdit);

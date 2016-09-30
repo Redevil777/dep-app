@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -48,8 +49,8 @@ public class TaskDaoImpl implements TaskDao {
         task.setEnabled(true);
         task.setCreateBy(userId);
         task.setUpdateBy(userId);
-        task.setCreateAt(LocalDate.now().toString());
-        task.setUpdateAt(LocalDate.now().toString());
+        task.setCreateAt(LocalDateTime.now());
+        task.setUpdateAt(LocalDateTime.now());
         task.setComplete(Complete.NOT);
         getSession().save(task);
     }
@@ -60,7 +61,7 @@ public class TaskDaoImpl implements TaskDao {
         Task task = getTaskById(id);
         task.setEnabled(false);
         task.setUpdateBy(userId);
-        task.setUpdateAt(LocalDate.now().toString());
+        task.setUpdateAt(LocalDateTime.now());
         getSession().update(task);
     }
 
@@ -76,7 +77,7 @@ public class TaskDaoImpl implements TaskDao {
         editTask.setEmpId(task.getEmpId());
         editTask.setPriority(task.getPriority());
         editTask.setUpdateBy(userId);
-        editTask.setUpdateAt(LocalDate.now().toString());
+        editTask.setUpdateAt(LocalDateTime.now());
 
         getSession().update(editTask);
     }

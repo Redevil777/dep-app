@@ -1,6 +1,11 @@
 package com.app.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Created by andrei on 15.09.16.
@@ -12,10 +17,12 @@ public abstract class AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private boolean enabled;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "create_at")
-    private String createAt;
+    private LocalDateTime createAt;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "update_at")
-    private String updateAt;
+    private LocalDateTime updateAt;
     @Column(name = "create_by")
     private long createBy;
     @Column(name = "update_by")
@@ -28,7 +35,7 @@ public abstract class AbstractEntity {
         this.id = id;
     }
 
-    public AbstractEntity(long id, boolean enabled, String createAt, String updateAt, long createBy, long updateBy) {
+    public AbstractEntity(long id, boolean enabled, LocalDateTime createAt, LocalDateTime updateAt, long createBy, long updateBy) {
         this.id = id;
         this.enabled = enabled;
         this.createAt = createAt;
@@ -53,19 +60,21 @@ public abstract class AbstractEntity {
         this.enabled = enabled;
     }
 
-    public String getCreateAt() {
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    public LocalDateTime getCreateAt() {
         return createAt;
     }
 
-    public void setCreateAt(String createAt) {
+    public void setCreateAt(LocalDateTime createAt) {
         this.createAt = createAt;
     }
 
-    public String getUpdateAt() {
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    public LocalDateTime getUpdateAt() {
         return updateAt;
     }
 
-    public void setUpdateAt(String updateAt) {
+    public void setUpdateAt(LocalDateTime updateAt) {
         this.updateAt = updateAt;
     }
 

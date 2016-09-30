@@ -17,6 +17,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -113,7 +116,7 @@ public class EmployeeServiceTest {
                         .param("firstName", employee.getFirstName())
                         .param("lastName", employee.getLastName())
                         .param("middleName", employee.getMiddleName())
-                        .param("birthday", employee.getBirthday())
+                        //.param("birthday", employee.getBirthday())
                         .param("email", employee.getEmail())
                         .param("phone", employee.getPhone())
                         .param("address", employee.getAddress())
@@ -149,7 +152,7 @@ public class EmployeeServiceTest {
                         .param("firstName", employee.getFirstName())
                         .param("lastName", employee.getLastName())
                         .param("middleName", employee.getMiddleName())
-                        .param("birthday", employee.getBirthday())
+                       // .param("birthday", employee.getBirthday())
                         .param("email", employee.getEmail())
                         .param("phone", employee.getPhone())
                         .param("address", employee.getAddress())
@@ -216,7 +219,7 @@ public class EmployeeServiceTest {
                 .setFirstName("test")
                 .setLastName("test")
                 .setMiddleName("test")
-                .setBirthday("1190-11-11")
+                .setBirthday(LocalDate.of(1111, 11, 11))
                 .setEmail("test")
                 .setPhone("111-11-11")
                 .setAddress("test")

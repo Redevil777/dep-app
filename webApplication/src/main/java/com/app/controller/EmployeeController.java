@@ -1,9 +1,6 @@
 package com.app.controller;
 
-import com.app.model.Department;
-import com.app.model.Employee;
-import com.app.model.EmployeeBuilder;
-import com.app.model.User;
+import com.app.model.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -18,6 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by andrey on 19.08.16.
@@ -29,11 +29,12 @@ public class EmployeeController {
     private final String EMPLOYEE_REST = "http://localhost:9000/employee/";
     private final String DEPARTMENT_REST = "http://localhost:9000/department/";
     private final String USER_REST = "http://localhost:9000/user/";
+    private final String TASK_REST = "http://localhost:9000/task/";
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ALL_EMPLOYEES_GET')")
     public ModelAndView getAll(){
-        ModelAndView view = new ModelAndView("allEmployees");
+        ModelAndView view = new ModelAndView("employeeAll");
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -41,14 +42,15 @@ public class EmployeeController {
             Employee[] employees = restTemplate.getForObject(EMPLOYEE_REST + "/all", Employee[].class);
             Department[] departments = restTemplate.getForObject(DEPARTMENT_REST + "/all", Department[].class);
             User[] users = restTemplate.getForObject(USER_REST + "/all", User[].class);
+            Task[] tasks = restTemplate.getForObject(TASK_REST + "/all", Task[].class);
             view.addObject("departments", departments);
             view.addObject("employees", employees);
-            view.addObject("employee", new EmployeeBuilder().createEmployee());
+            view.addObject("employee", new Employee());
+            view.addObject("tasks", tasks);
             view.addObject("users", users);
         } catch (Exception e) {
             view.addObject("error", "Not found any employees.");
         }
-
         return view;
     }
 
@@ -74,9 +76,9 @@ public class EmployeeController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @PreAuthorize("hasAuthority('ADD_EMPLOYEE_POST')")
     public ModelAndView addEmployee(RedirectAttributes redirectAttributes,
-                                    @RequestParam("firstName") String fname,
-                                    @RequestParam("lastName") String lname,
-                                    @RequestParam("middleName") String mname,
+                                    @RequestParam("firstName") String firstName,
+                                    @RequestParam("lastName") String lastName,
+                                    @RequestParam("middleName") String middleName,
                                     @RequestParam("birthday") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday,
                                     @RequestParam("email") String email,
                                     @RequestParam("phone") String phone,
@@ -85,14 +87,13 @@ public class EmployeeController {
                                     @RequestParam("depId") Long dep_id) {
         RestTemplate restTemplate = new RestTemplate();
 
-
         String userName = CurrentUserName.getCurrentUserName();
 
         try {
             MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-            map.add("firstName", fname);
-            map.add("lastName", lname);
-            map.add("middleName", mname);
+            map.add("firstName", firstName);
+            map.add("lastName", lastName);
+            map.add("middleName", middleName);
             map.add("birthday", birthday.toString());
             map.add("email", email);
             map.add("phone", phone);
@@ -107,6 +108,7 @@ public class EmployeeController {
             return new ModelAndView("redirect:/employee/all");
 
         } catch (Exception e) {
+            System.out.println("catch");
             redirectAttributes.addFlashAttribute("error", "Can't add new employee, may be department list is empty");
             return new ModelAndView("redirect:/employee/all");
         }

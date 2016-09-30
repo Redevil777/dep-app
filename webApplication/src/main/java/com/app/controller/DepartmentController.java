@@ -29,7 +29,7 @@ public class DepartmentController {
     @PreAuthorize("hasAuthority('ALL_DEPARTMENTS_GET')")
     public ModelAndView getAllDepartments() {
 
-        ModelAndView view = new ModelAndView("departmentall");
+        ModelAndView view = new ModelAndView("department");
 
         RestTemplate restTemplate = new RestTemplate();
 

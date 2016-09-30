@@ -1,16 +1,19 @@
 package com.app.model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class EmployeeBuilder {
     private long id;
     private boolean enabled;
-    private String createAt;
-    private String updateAt;
+    private LocalDateTime createAt;
+    private LocalDateTime updateAt;
     private long createBy;
     private long updateBy;
     private String firstName;
     private String lastName;
     private String middleName;
-    private String birthday;
+    private LocalDate birthday;
     private String email;
     private String phone;
     private String address;
@@ -27,12 +30,12 @@ public class EmployeeBuilder {
         return this;
     }
 
-    public EmployeeBuilder setCreateAt(String createAt) {
+    public EmployeeBuilder setCreateAt(LocalDateTime createAt) {
         this.createAt = createAt;
         return this;
     }
 
-    public EmployeeBuilder setUpdateAt(String updateAt) {
+    public EmployeeBuilder setUpdateAt(LocalDateTime updateAt) {
         this.updateAt = updateAt;
         return this;
     }
@@ -62,7 +65,7 @@ public class EmployeeBuilder {
         return this;
     }
 
-    public EmployeeBuilder setBirthday(String birthday) {
+    public EmployeeBuilder setBirthday(LocalDate birthday) {
         this.birthday = birthday;
         return this;
     }

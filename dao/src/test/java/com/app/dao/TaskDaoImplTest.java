@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ public class TaskDaoImplTest  extends Assert{
 
     @Test
     public void addTaskTest(){
-        Task task = new Task("new task", TaskType.CALL, "test", "2016-06-06", 2, Priority.HIGH, Complete.NOT);
+        Task task = new Task("new task", TaskType.CALL, "test", LocalDateTime.of(2016, 06, 06, 18, 00, 00), 2, Priority.HIGH, Complete.NOT);
         List<Task> tasksBeforeAdd = taskDao.getAllTasks();
         taskDao.addTask(task, "user");
         List<Task> tasksAfterAdd = taskDao.getAllTasks();
@@ -59,7 +60,7 @@ public class TaskDaoImplTest  extends Assert{
 
     @Test
     public void editTaskTest(){
-        Task task = new Task("new task", TaskType.CALL, "test", "2016-06-06", 2, Priority.MEDIUM, Complete.COMPLETE);
+        Task task = new Task("new task", TaskType.CALL, "test", LocalDateTime.of(2016, 06, 06, 18, 00, 00), 2, Priority.MEDIUM, Complete.COMPLETE);
         task.setId(1);
         taskDao.editTask(task, "user");
 

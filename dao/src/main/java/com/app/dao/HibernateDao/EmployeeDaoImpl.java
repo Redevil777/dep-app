@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -47,8 +48,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public void addEmployee(Employee employee, String username) {
         long userId = getUserId(username);
-        employee.setCreateAt(LocalDate.now().toString());
-        employee.setUpdateAt(LocalDate.now().toString());
+        employee.setCreateAt(LocalDateTime.now());
+        employee.setUpdateAt(LocalDateTime.now());
         employee.setEnabled(true);
         employee.setCreateBy(userId);
         employee.setUpdateBy(userId);
@@ -60,7 +61,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public void deleteEmployeeById(long id, String username) {
         long userId = getUserId(username);
         Employee employee = getEmployeeById(id);
-        employee.setUpdateAt(LocalDate.now().toString());
+        employee.setUpdateAt(LocalDateTime.now());
         employee.setUpdateBy(userId);
         employee.setEnabled(false);
 
@@ -71,7 +72,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public void editEmployee(Employee employee, String username) {
         long userId = getUserId(username);
         Employee employeeEdit = getEmployeeById(employee.getId());
-        employeeEdit.setUpdateAt(LocalDate.now().toString());
+        employeeEdit.setUpdateAt(LocalDateTime.now());
         employeeEdit.setUpdateBy(userId);
         employeeEdit.setFirstName(employee.getFirstName());
         employeeEdit.setLastName(employee.getLastName());

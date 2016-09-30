@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -38,14 +39,13 @@ public class EmployeeService {
     public ResponseEntity addEmployee(@RequestParam("firstName") String fname,
                                       @RequestParam("lastName") String lname,
                                       @RequestParam("middleName") String mname,
-                                      @RequestParam("birthday") @DateTimeFormat(pattern = "yyyy-MM-dd") String birthday,
+                                      @RequestParam("birthday") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday,
                                       @RequestParam("email") String email,
                                       @RequestParam("phone") String phone,
                                       @RequestParam("address") String address,
                                       @RequestParam("salary") long salary,
                                       @RequestParam("depId") long dep_id,
                                       @RequestParam("userName") String userName) {
-
 
         Employee employee = new EmployeeBuilder()
                 .setFirstName(fname)
@@ -57,8 +57,8 @@ public class EmployeeService {
                 .setAddress(address)
                 .setSalary(salary)
                 .setDepId(dep_id)
-                .setCreateAt(LocalDate.now().toString())
-                .setUpdateAt(LocalDate.now().toString())
+                .setCreateAt(LocalDateTime.now())
+                .setUpdateAt(LocalDateTime.now())
                 .setEnabled(true)
                 .setCreateBy(1)
                 .setUpdateBy(1)
@@ -103,7 +103,7 @@ public class EmployeeService {
                                        @RequestParam("firstName") String fname,
                                        @RequestParam("lastName") String lname,
                                        @RequestParam("middleName") String mname,
-                                       @RequestParam("birthday") @DateTimeFormat(pattern = "yyyy-MM-dd") String birthday,
+                                       @RequestParam("birthday") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday,
                                        @RequestParam("email") String email,
                                        @RequestParam("phone") String phone,
                                        @RequestParam("address") String address,

@@ -11,6 +11,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -108,7 +110,7 @@ public class EmployeeDaoImplTest extends Assert {
                 .setFirstName("test")
                 .setLastName("test")
                 .setMiddleName("test")
-                .setBirthday("1111-11-11")
+                .setBirthday(LocalDate.of(1111, 11, 11))
                 .setEmail("test")
                 .setPhone("12345")
                 .setAddress("test")

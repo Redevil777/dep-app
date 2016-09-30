@@ -3,6 +3,8 @@ package com.app.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Created by andrey on 20.09.16.
@@ -20,7 +22,7 @@ public class Task extends AbstractEntity {
     @Column(name = "description")
     private String description;
     @Column(name = "date_when")
-    private String dateWhen;
+    private LocalDateTime dateWhen;
     @Column(name = "emp_id")
     private long empId;
     @Enumerated(EnumType.STRING)
@@ -34,7 +36,7 @@ public class Task extends AbstractEntity {
 
     }
 
-    public Task(String title, TaskType taskType, String description, String dateWhen, long empId, Priority priority, Complete complete) {
+    public Task(String title, TaskType taskType, String description, LocalDateTime dateWhen, long empId, Priority priority, Complete complete) {
         this.title = title;
         this.taskType = taskType;
         this.description = description;
@@ -44,8 +46,8 @@ public class Task extends AbstractEntity {
         this.complete = complete;
     }
 
-    public Task(long id, boolean enabled, String createAt, String updateAt, long createBy, long updateBy,
-                String title, TaskType taskType, String description, String dateWhen, long empId, Priority priority, Complete complete) {
+    public Task(long id, boolean enabled, LocalDateTime createAt, LocalDateTime updateAt, long createBy, long updateBy,
+                String title, TaskType taskType, String description, LocalDateTime dateWhen, long empId, Priority priority, Complete complete) {
         super(id, enabled, createAt, updateAt, createBy, updateBy);
         this.title = title;
         this.taskType = taskType;
@@ -80,11 +82,11 @@ public class Task extends AbstractEntity {
         this.taskType = taskType;
     }
 
-    public String getDateWhen() {
+    public LocalDateTime getDateWhen() {
         return dateWhen;
     }
 
-    public void setDateWhen(String dateWhen) {
+    public void setDateWhen(LocalDateTime dateWhen) {
         this.dateWhen = dateWhen;
     }
 

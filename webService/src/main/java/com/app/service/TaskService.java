@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -76,7 +77,7 @@ public class TaskService {
                                    @RequestParam("title") String title,
                                    @RequestParam("type") TaskType taskType,
                                    @RequestParam("description") String description,
-                                   @RequestParam("dateWhen") String dateWhen,
+                                   @RequestParam("dateWhen") LocalDateTime dateWhen,
                                    @RequestParam("empId") long empId,
                                    @RequestParam("priority") Priority priority,
                                    @RequestParam("complete") Complete complete,
@@ -96,7 +97,7 @@ public class TaskService {
                                   @RequestParam("title") String title,
                                   @RequestParam("type") String type,
                                   @RequestParam("description") String description,
-                                  @RequestParam("dateWhen") String dateWhen,
+                                  @RequestParam("dateWhen") LocalDateTime dateWhen,
                                   @RequestParam("priority") String priority,
                                   @RequestParam("username") String username){
 
