@@ -10,6 +10,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -47,6 +49,14 @@ public class UserDaoImpl implements UserDao {
     @Autowired
     private RoleDao roleDao;
 
+
+    public static void main(String[] a){
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String pass = "admin";
+
+        System.out.println(passwordEncoder.encode(pass));
+    }
+
     @Override
     public void addUser(User user, ArrayList<String> roles) {
         try {
@@ -54,8 +64,10 @@ public class UserDaoImpl implements UserDao {
             String message = "The user [" + userCheck.getUsername() + "] already exists";
             throw new Exception(message);
         } catch (Exception e) {
-            getSession().save(user);
+            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
 
+            getSession().save(user);
             User addedUser = getUserByName(user.getUsername());
             for (int i = 0; i < roles.size(); i++){
                 String qwe = roles.get(i);
@@ -87,9 +99,10 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void editUser(User user, String role) {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         User userEdit = getUserById(user.getId());
         userEdit.setUsername(user.getUsername());
-        userEdit.setPassword(user.getPassword());
+        userEdit.setPassword(passwordEncoder.encode(user.getPassword()));
         getSession().update(userEdit);
         updateUserRoles(user.getId(), role);
     }

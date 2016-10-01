@@ -84,7 +84,9 @@ public class TaskDaoImpl implements TaskDao {
 
     @Override
     public List<Task> getAllTasks() {
+        System.out.println("task dao");
         List<Task> tasks = getSession().createQuery(getAllTasks).list();
+        System.out.println(tasks.size());
         for(int i = 0; i < tasks.size(); i++){
             if(tasks.get(i).isEnabled()==false){
                 tasks.remove(i);

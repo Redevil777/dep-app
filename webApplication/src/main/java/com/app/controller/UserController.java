@@ -129,10 +129,8 @@ public class UserController {
 
             Set<Role> roles = user.getRoles();
             List<String> roleName = new ArrayList<>();
-            ArrayList<Long> roleId = new ArrayList<>();
             for (Role qwe:roles){
                roleName.add(qwe.getRoleName());
-                roleId.add(qwe.getId());
             }
             view.addObject("editUser", user);
             view.addObject("roleName", roleName.get(0));
