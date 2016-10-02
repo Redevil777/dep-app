@@ -93,7 +93,7 @@ public class UserServiceTest {
 
     @Test
     public void addUserWithIncorrectFormTest() throws Exception {
-        User user = new User(1, null, null, true);
+        User user = new User(1, null, null, true, 1);
         this.mvc.perform(
                 post("/user/add")
                 .param("username", user.getUsername())
@@ -133,6 +133,7 @@ public class UserServiceTest {
                 .param("username", "test")
                 .param("password", "test")
                 .param("role", "ROLE_ADMIN")
+                        .param("empId", "1")
                 .accept(MediaType.APPLICATION_JSON)
         )
                 .andDo(print())

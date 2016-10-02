@@ -146,13 +146,14 @@ public class EmployeeServiceTest {
         Employee employee = createEmployee();
 
 
+
         this.mvc.perform(
                 post("/employee/edit")
                         .param("id", "10")
                         .param("firstName", employee.getFirstName())
                         .param("lastName", employee.getLastName())
                         .param("middleName", employee.getMiddleName())
-                       // .param("birthday", employee.getBirthday())
+                        .param("birthday", employee.getBirthday().toString())
                         .param("email", employee.getEmail())
                         .param("phone", employee.getPhone())
                         .param("address", employee.getAddress())

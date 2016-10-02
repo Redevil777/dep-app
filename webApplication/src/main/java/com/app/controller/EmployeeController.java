@@ -34,7 +34,7 @@ public class EmployeeController {
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ALL_EMPLOYEES_GET')")
     public ModelAndView getAll(){
-        ModelAndView view = new ModelAndView("employeeAll");
+        ModelAndView view = new ModelAndView("employee");
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -43,11 +43,12 @@ public class EmployeeController {
             Department[] departments = restTemplate.getForObject(DEPARTMENT_REST + "/all", Department[].class);
             User[] users = restTemplate.getForObject(USER_REST + "/all", User[].class);
             Task[] tasks = restTemplate.getForObject(TASK_REST + "/all", Task[].class);
+            Employee employee = CurrentEmployee.getEmployee();
             view.addObject("departments", departments);
             view.addObject("employees", employees);
-            view.addObject("employee", new Employee());
             view.addObject("tasks", tasks);
             view.addObject("users", users);
+            view.addObject("employee", employee);
         } catch (Exception e) {
             view.addObject("error", "Not found any employees.");
         }
@@ -108,7 +109,6 @@ public class EmployeeController {
             return new ModelAndView("redirect:/employee/all");
 
         } catch (Exception e) {
-            System.out.println("catch");
             redirectAttributes.addFlashAttribute("error", "Can't add new employee, may be department list is empty");
             return new ModelAndView("redirect:/employee/all");
         }

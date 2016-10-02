@@ -15,6 +15,7 @@
     </script>
 </head>
 <body>
+<#include "homePage.ftl">
 <#if !employees?has_content>
 There are currently no employees in the list.
 <#else >

@@ -103,6 +103,7 @@ public class UserDaoImpl implements UserDao {
         User userEdit = getUserById(user.getId());
         userEdit.setUsername(user.getUsername());
         userEdit.setPassword(passwordEncoder.encode(user.getPassword()));
+        userEdit.setEmpId(user.getEmpId());
         getSession().update(userEdit);
         updateUserRoles(user.getId(), role);
     }

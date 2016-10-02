@@ -29,6 +29,9 @@ public class User implements UserDetails {
 
     private boolean enabled;
 
+    @Column(name = "emp_id")
+    private long empId;
+
     @OneToMany
     @JoinTable(name = "user_roles",
                 joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
@@ -38,11 +41,12 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(long id, String username, String password, boolean enabled){
+    public User(long id, String username, String password, boolean enabled, long empId){
         this.id = id;
         this.username = username;
         this.password = password;
         this.enabled = enabled;
+        this.empId = empId;
     }
 
     public User(String username, String password, boolean enabled, Set<Role> roles) {
@@ -92,6 +96,14 @@ public class User implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public long getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(long empId) {
+        this.empId = empId;
     }
 
     @JsonIgnore

@@ -6,6 +6,7 @@ import com.app.model.Priority;
 import com.app.model.Task;
 import com.app.model.TaskType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -77,7 +78,7 @@ public class TaskService {
                                    @RequestParam("title") String title,
                                    @RequestParam("type") TaskType taskType,
                                    @RequestParam("description") String description,
-                                   @RequestParam("dateWhen") LocalDateTime dateWhen,
+                                   @RequestParam("dateWhen") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dateWhen,
                                    @RequestParam("empId") long empId,
                                    @RequestParam("priority") Priority priority,
                                    @RequestParam("complete") Complete complete,
@@ -93,18 +94,22 @@ public class TaskService {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ResponseEntity addTask(@RequestParam("id") long id,
+    public ResponseEntity addTask(@RequestParam("id") long id ,
                                   @RequestParam("title") String title,
                                   @RequestParam("type") String type,
                                   @RequestParam("description") String description,
-                                  @RequestParam("dateWhen") LocalDateTime dateWhen,
+                                  @RequestParam("dateWhen") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dateWhen,
                                   @RequestParam("priority") String priority,
                                   @RequestParam("username") String username){
+
+        System.out.println("qwe");
 
         Task task = new Task();
         task.setTitle(title);
         task.setDescription(description);
         task.setDateWhen(dateWhen);
+        System.out.println("hello");
+        System.out.println(dateWhen);
         task.setEmpId(id);
         for(TaskType t:TaskType.values()){
             if(t.toString().equals(type)){

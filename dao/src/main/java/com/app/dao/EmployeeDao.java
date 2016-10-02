@@ -3,6 +3,7 @@ package com.app.dao;
 import com.app.model.Employee;
 import com.app.model.Task;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -20,9 +21,9 @@ public interface EmployeeDao {
 
     public Employee getEmployeeById(long id);
 
-    public List<Employee> getEmployeesByDOF(String date);
+    public List<Employee> getEmployeesByDOF(LocalDate date);
 
-    public List<Employee> getEmployeesBetweenDOF(String from, String to);
+    public List<Employee> getEmployeesBetweenDOF(LocalDate from, LocalDate to);
 
     public List<Task> getTasksByEmployee(long id);
 }

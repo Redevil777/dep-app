@@ -10,8 +10,9 @@ DROP TABLE tasks if EXISTS ;
 CREATE TABLE users (
     id int IDENTITY ,
     username VARCHAR (50),
-    password VARCHAR (50),
-    enabled boolean not NULL
+    password VARCHAR (150),
+    enabled boolean not NULL,
+    emp_id int
 );
 CREATE TABLE department  (
     id int IDENTITY,
@@ -67,7 +68,7 @@ CREATE TABLE tasks(
     title VARCHAR(30),
     task_type VARCHAR (50),
     description VARCHAR(300),
-    date_when DATE,
+    date_when TIMESTAMP,
     emp_id INT,
     complete VARCHAR (50),
     priority VARCHAR (50),

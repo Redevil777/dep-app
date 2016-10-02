@@ -1,5 +1,6 @@
 package com.app.controller;
 
+import com.app.model.Employee;
 import com.app.model.Role;
 import com.app.model.User;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,6 +30,7 @@ public class UserController {
 
     private final String USER_REST = "http://localhost:9000/user/";
     private final String ROLE_REST = "http://localhost:9000/role/";
+    private final String EMPLOYEE_REST = "http://localhost:9000/employee/";
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('All_USERS_GET')")
@@ -42,8 +44,11 @@ public class UserController {
 
             Role[] roles = restTemplate.getForObject(ROLE_REST + "/all", Role[].class);
 
+            Employee[] employees = restTemplate.getForObject(EMPLOYEE_REST + "/all", Employee[].class);
+
             view.addObject("users", users);
             view.addObject("roles", roles);
+            view.addObject("employees", employees);
             view.addObject("user", new User());
         } catch (Exception e){
         }
@@ -148,7 +153,8 @@ public class UserController {
                                            @RequestParam("id")   String   id,
                                            @RequestParam("username") String name,
                                            @RequestParam("password") String password,
-                                           @RequestParam("roles") String role){
+                                           @RequestParam("roles") String role,
+                                           @RequestParam("empId") String empId){
         ModelAndView view = new ModelAndView("redirect:/user/all");
 
         RestTemplate restTemplate = new RestTemplate();
@@ -159,6 +165,7 @@ public class UserController {
             map.add("username", name);
             map.add("password", password);
             map.add("role", role);
+            map.add("empId", empId);
             restTemplate.postForObject(USER_REST + "/edit", map, String.class);
 
             redirectAttributes.addFlashAttribute("message", "User edited");

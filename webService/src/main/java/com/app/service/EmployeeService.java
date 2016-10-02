@@ -133,7 +133,7 @@ public class EmployeeService {
     }
 
     @RequestMapping(value = "/date/{date}", method = RequestMethod.GET)
-    public ResponseEntity getEmployeeByDate(@PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") String date) {
+    public ResponseEntity getEmployeeByDate(@PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
 
         List<Employee> employees = null;
 
@@ -147,8 +147,8 @@ public class EmployeeService {
     }
 
     @RequestMapping(value = "/between/{from}/{to}", method = RequestMethod.GET)
-    public ResponseEntity getEmployeeBetweenDates(@PathVariable("from")@DateTimeFormat(pattern = "yyyy-MM-dd") String from,
-                                                  @PathVariable("to") @DateTimeFormat(pattern = "yyyy-MM-dd") String to) {
+    public ResponseEntity getEmployeeBetweenDates(@PathVariable("from")@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate from,
+                                                  @PathVariable("to") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate to) {
         List<Employee> employees = null;
 
         try {

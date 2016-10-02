@@ -1,5 +1,6 @@
 package com.app.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ public class Task extends AbstractEntity {
     private TaskType taskType;
     @Column(name = "description")
     private String description;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "date_when")
     private LocalDateTime dateWhen;
     @Column(name = "emp_id")
@@ -82,6 +84,7 @@ public class Task extends AbstractEntity {
         this.taskType = taskType;
     }
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public LocalDateTime getDateWhen() {
         return dateWhen;
     }

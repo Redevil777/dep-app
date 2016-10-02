@@ -27,6 +27,7 @@ public class DepartmentDaoImplTest extends Assert {
         Department department = new Department("test");
         departmentDao.addDepartment(department, "user");
         List<Department> departmentsAfterAdd = departmentDao.getAllDepartments();
+        System.out.println(departmentsAfterAdd.get(0).getCreateAt());
         assertEquals(departments.size(), departmentsAfterAdd.size()-1);
     }
 

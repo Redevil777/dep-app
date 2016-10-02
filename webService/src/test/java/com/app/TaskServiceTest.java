@@ -16,6 +16,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -97,13 +100,14 @@ public class TaskServiceTest {
 
     @Test
     public void addTaskTest() throws Exception {
+
         this.mvc.perform(
                 post("/task/add")
                         .param("id", "1")
                         .param("title", "test")
                         .param("type", "CALL")
                         .param("description", "test")
-                        .param("dateWhen", "1111-11-11")
+                        .param("dateWhen", "1111-11-11 18:00:00")
                         .param("priority", "LOW")
                         .param("username", "user")
                         .accept(MediaType.APPLICATION_JSON)
@@ -123,7 +127,7 @@ public class TaskServiceTest {
                         .param("title", task.getTitle())
                         .param("type", "CALL")
                         .param("description", "test")
-                        .param("dateWhen", "1111-11-11")
+                        .param("dateWhen", "1111-11-11 18:00:00")
                         .param("priority", "LOW")
                         .param("username", "user")
                         .accept(MediaType.APPLICATION_JSON)
@@ -140,7 +144,7 @@ public class TaskServiceTest {
                         .param("title", "test")
                         .param("type", "CALL")
                         .param("description", "test")
-                        .param("dateWhen", "1111-11-11")
+                        .param("dateWhen", "1111-11-11 18:00:00")
                         .param("empId","2")
                         .param("priority", "LOW")
                         .param("complete", "NOT")

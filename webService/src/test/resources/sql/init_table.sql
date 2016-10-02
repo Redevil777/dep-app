@@ -1,4 +1,4 @@
-insert into users (id, username, password, enabled) VALUES (1, 'user','pass', 1);
+insert into users (id, username, password, enabled, emp_id) VALUES (1, 'user','pass', 1, 1);
 
 
 INSERT into roles (id, rolename) VALUES (1, 'ROLE_ADMIN');
@@ -16,4 +16,4 @@ INSERT INTO permissions (id, permissionname) VALUES (1, 'add_department'), (2, '
 insert into role_permissions (role_id, permission_id) values (1, 1), (1, 2);
 
 INSERT INTO tasks (id, title, task_type, description, date_when, emp_id, complete, priority, create_at, update_at, enabled, create_by, update_by)
-VALUES (1, 'task 1', 'CALL', 'need complete module dao', '2016-09-20', 1, 'NOT', 'LOW', '1980-01-01','1980-01-01', 1, 1,1);
+VALUES (1, 'task 1', 'CALL', 'need complete module dao', '2016-09-20 18:00:00', 1, 'NOT', 'LOW', '1980-01-01','1980-01-01', 1, 1,1);

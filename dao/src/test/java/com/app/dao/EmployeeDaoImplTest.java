@@ -72,7 +72,7 @@ public class EmployeeDaoImplTest extends Assert {
         assertEquals("test", employeeEdited.getFirstName());
         assertEquals("test", employeeEdited.getLastName());
         assertEquals("test", employeeEdited.getMiddleName());
-        assertEquals("1111-11-11", employeeEdited.getBirthday());
+        assertEquals(LocalDate.of(1111, 11, 11), employeeEdited.getBirthday());
         assertEquals("test", employeeEdited.getEmail());
         assertEquals("12345", employeeEdited.getPhone());
         assertEquals("test", employeeEdited.getAddress());
@@ -82,16 +82,16 @@ public class EmployeeDaoImplTest extends Assert {
 
     @Test
     public void getEmployeeByDOF(){
-        List<Employee> employee = employeeDao.getEmployeesByDOF("1974-11-16");
+        List<Employee> employee = employeeDao.getEmployeesByDOF(LocalDate.of(1974, 11, 16));
 
         assertNotNull(employee);
-        assertEquals("1974-11-16", employee.get(0).getBirthday());
+        assertEquals(LocalDate.of(1974, 11, 16), employee.get(0).getBirthday());
         assertEquals("Poul", employee.get(0).getFirstName());
     }
 
     @Test
     public void getEmployeesBetweenDOB(){
-        List<Employee> employees = employeeDao.getEmployeesBetweenDOF("1984-02-04", "1987-12-20");
+        List<Employee> employees = employeeDao.getEmployeesBetweenDOF(LocalDate.of(1984, 02, 04), LocalDate.of(1987, 12, 20));
 
         assertNotNull(employees);
         assertEquals(6, employees.size());

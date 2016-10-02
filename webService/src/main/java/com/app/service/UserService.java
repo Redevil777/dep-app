@@ -52,6 +52,7 @@ public class UserService {
                                   @RequestParam("password") String password,
                                   @RequestParam("role") ArrayList<String> role){
 
+        System.out.println("hello"  + name);
         User user = new User();
         user.setUsername(name);
         user.setPassword(password);
@@ -80,12 +81,15 @@ public class UserService {
     public ResponseEntity editUser(@RequestParam("id") Long id,
                                    @RequestParam("username") String name,
                                    @RequestParam("password") String password,
-                                   @RequestParam("role") String role){
+                                   @RequestParam("role") String role,
+                                   @RequestParam("empId") long empId){
 
         User user = new User();
         user.setId(id);
         user.setUsername(name);
         user.setPassword(password);
+        user.setEmpId(empId);
+
 
         try {
             userDao.editUser(user, role);
@@ -93,5 +97,16 @@ public class UserService {
         } catch (Exception e) {
             return new ResponseEntity("Check input data!", HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @RequestMapping(value = "/username/{username}", method = RequestMethod.GET)
+    public ResponseEntity getUserByName(@PathVariable("username") String username){
+        try {
+            User user = userDao.getUserByName(username);
+            return new ResponseEntity(user, HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+        }
+
     }
 }

@@ -24,12 +24,4 @@ public class CurrentUserName {
 
         return userName;
     }
-
-
-    public static void main(String[] a){
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String pass = "admin";
-
-        System.out.println(passwordEncoder.encode(pass));
-    }
 }

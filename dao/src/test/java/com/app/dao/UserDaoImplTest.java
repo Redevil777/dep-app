@@ -33,7 +33,7 @@ public class UserDaoImplTest extends Assert {
 
     @Test
     public void addUserTest(){
-        User user = new User(2, "test", "test", true);
+        User user = new User(2, "test", "test", true, 1);
         List<User> users = userDao.getAllUsers();
         ArrayList<String> list = new ArrayList<>();
         String role = "[ ROLE_ADMIN ]";
@@ -55,7 +55,7 @@ public class UserDaoImplTest extends Assert {
 
     @Test
     public void editUserTest(){
-        User user = new User(1, "test", "test", true);
+        User user = new User(1, "test", "test", true, 1);
         userDao.editUser(user, "ROLE_ADMIN");
         User userEdited = userDao.getUserById(1);
 

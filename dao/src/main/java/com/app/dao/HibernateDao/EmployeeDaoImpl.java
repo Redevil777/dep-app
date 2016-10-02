@@ -105,7 +105,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public List<Employee> getEmployeesByDOF(String date) {
+    public List<Employee> getEmployeesByDOF(LocalDate date) {
         Query query = getSession().createQuery(getEmployeesByDOF);
         query.setParameter("birthday", date);
         List<Employee> employees = query.list();
@@ -113,7 +113,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public List<Employee> getEmployeesBetweenDOF(String from, String to) {
+    public List<Employee> getEmployeesBetweenDOF(LocalDate from, LocalDate to) {
         Query query = getSession().createQuery(getEmployeesBetweenDOF);
         query.setParameter("from", from);
         query.setParameter("to", to);

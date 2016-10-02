@@ -22,7 +22,7 @@ There are currently haven't any users.
         <td>Id</td>
         <td>Username</td>
         <td>Role</td>
-        <td></td>
+        <td>Employee</td>
         <td></td>
     </tr>
 
@@ -30,11 +30,14 @@ There are currently haven't any users.
         <tr>
             <td>${user.id}</td>
             <td>${user.username}</td>
-        <td>
             <#list user.roles as role>
                 <td>${role.roleName}</td>
             </#list>
-            </td>
+            <#list employees as employee>
+                <#if user.empId == employee.id>
+                    <td>${employee.lastName}</td>
+                </#if>
+            </#list>
             <td><a onclick="hidetxt(1${user.id}); return false;" href="#" rel="nofollow">edit</a> </td>
         </tr>
     </#list>
@@ -75,6 +78,24 @@ There are currently haven't any users.
                             </#list>
                         </#list>
                     </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="empId">Employee</label> </td>
+                    <td>
+                        <select name="empId">
+                            <#list employees as employee>
+                                <#if user.empId == employee.id>
+                                    <option value="${employee.id}" selected>
+                                    ${employee.lastName}
+                                    </option>
+                                <#else >
+                                    <option value="${employee.id}">
+                                    ${employee.lastName}
+                                    </option>
+                                </#if>
+                            </#list>
+                        </select>
                     </td>
                 </tr>
             </table>
