@@ -64,11 +64,25 @@ public class TaskController {
     @RequestMapping(value = "/title/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('TITLES_OF_EMP_GET')")
     public ModelAndView getTitlesOfTaskByEmployeeId(@PathVariable("id") long id){
-        ModelAndView view = new ModelAndView("taskTitles");
+        ModelAndView view = new ModelAndView("taskEmp");
         RestTemplate restTemplate = new RestTemplate();
+        List<String> types = Stream.of(TaskType.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+        List<String> priority = Stream.of(Priority.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+        List<String> complete = Stream.of(Complete.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
         try {
+            Employee employee = CurrentEmployee.getEmployee();
             Task[] tasks = restTemplate.getForObject(TASK_REST + "/tasks/" + id, Task[].class);
             view.addObject("tasks", tasks);
+            view.addObject("employee", employee);
+            view.addObject("types", types);
+            view.addObject("priority", priority);
+            view.addObject("complete", complete);
             return view;
         } catch (Exception e){
             return view;
@@ -102,25 +116,27 @@ public class TaskController {
         return view;
     }
 
-    @RequestMapping(value = "/add/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     @PreAuthorize("hasAuthority('ADD_TASK_POST')")
-    public ModelAndView addTask(@PathVariable("id") long id,
-                                @RequestParam("title") String title,
+    public ModelAndView addTask(@RequestParam("title") String title,
                                 @RequestParam("taskType") String type,
                                 @RequestParam("description") String description,
-                                @RequestParam("dateWhen") String dateWhen,
+                                @RequestParam("startTime") String startTime,
+                                @RequestParam("endTime") String endTime,
+                                @RequestParam("empId") long empId,
                                 @RequestParam("priority") String priority){
-        ModelAndView view = new ModelAndView("redirect:/employee/all");
+        ModelAndView view = new ModelAndView("redirect:/task/title/" + empId);
         RestTemplate restTemplate = new RestTemplate();
 
         String username = CurrentUserName.getCurrentUserName();
 
         MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-        map.add("id", id);
         map.add("title", title);
         map.add("type", type);
         map.add("description", description);
-        map.add("dateWhen", dateWhen);
+        map.add("startTime", startTime);
+        map.add("endTime", endTime);
+        map.add("empId", empId);
         map.add("priority", priority);
         map.add("username", username);
         try {
@@ -167,12 +183,13 @@ public class TaskController {
                                  @RequestParam("title") String title,
                                  @RequestParam("taskType") String type,
                                  @RequestParam("description") String description,
-                                 @RequestParam("dateWhen") String dateWhen,
+                                 @RequestParam("startTime") String startTime,
+                                 @RequestParam("endTime") String endTime,
                                  @RequestParam("empId") long empId,
                                  @RequestParam("priority") String priority,
                                  @RequestParam("complete") String complete){
 
-        ModelAndView view = new ModelAndView("redirect:/task/all");
+        ModelAndView view = new ModelAndView("redirect:/task/title/" + empId);
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -184,7 +201,8 @@ public class TaskController {
             map.add("title", title);
             map.add("type", type);
             map.add("description", description);
-            map.add("dateWhen", dateWhen);
+            map.add("startTime", startTime);
+            map.add("endTime", endTime);
             map.add("empId", empId);
             map.add("priority", priority);
             map.add("complete", complete);

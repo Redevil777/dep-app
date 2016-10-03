@@ -15,7 +15,7 @@
     </script>
 </head>
 <body>
-<#include "homePage.ftl">
+<#include "head.ftl">
 <#if !employees?has_content>
 There are currently no employees in the list.
 <#else >
@@ -93,7 +93,7 @@ There are currently no employees in the list.
         </tr>
         <tr>
             <td>Date of the beginning:</td>
-            <td>${task.dateWhen}</td>
+            <td>${task.startTime}</td>
         </tr>
         <tr>
             <td>Progress:</td>

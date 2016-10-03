@@ -26,7 +26,7 @@ import java.util.List;
 @Repository
 public class UserDaoImpl implements UserDao {
 
-    @Value("insert into user_roles VALUES (:user_id, :role_id)")
+    @Value("insert into user_roles VALUES (null, :user_id, :role_id)")
     private String addUserRoles;
 
     @Value("from User")
@@ -83,6 +83,7 @@ public class UserDaoImpl implements UserDao {
                         SQLQuery query = getSession().createSQLQuery(addUserRoles);
                         query.setParameter("user_id", addedUser.getId());
                         query.setParameter("role_id", String.valueOf(roleId.get(q).getId()));
+                        query.executeUpdate();
                     }
                 }
             }

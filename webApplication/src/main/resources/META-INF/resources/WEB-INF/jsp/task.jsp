@@ -33,8 +33,8 @@
                 <td><form:textarea path="description" readonly="true"/></td>
             </tr>
             <tr>
-                <td><form:label path="dateWhen">End date:</form:label></td>
-                <td><form:input data-format="yyyy-MM-dd" type="date" path="dateWhen" value="${task.dateWhen}" readonly="true"/></td>
+                <td><form:label path="startTime">End date:</form:label></td>
+                <td><form:input data-format="yyyy-MM-dd" type="date" path="startTime" value="${task.startTime}" readonly="true"/></td>
             </tr>
         </table>
     </form:form>

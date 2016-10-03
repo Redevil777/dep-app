@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -22,9 +21,12 @@ public class Task extends AbstractEntity {
     private TaskType taskType;
     @Column(name = "description")
     private String description;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @Column(name = "date_when")
-    private LocalDateTime dateWhen;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    @Column(name = "start_time")
+    private LocalDateTime startTime;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    @Column(name = "end_time")
+    private LocalDateTime endTime;
     @Column(name = "emp_id")
     private long empId;
     @Enumerated(EnumType.STRING)
@@ -38,23 +40,25 @@ public class Task extends AbstractEntity {
 
     }
 
-    public Task(String title, TaskType taskType, String description, LocalDateTime dateWhen, long empId, Priority priority, Complete complete) {
+    public Task(String title, TaskType taskType, String description, LocalDateTime startTime, LocalDateTime endTime, long empId, Priority priority, Complete complete) {
         this.title = title;
         this.taskType = taskType;
         this.description = description;
-        this.dateWhen = dateWhen;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.empId = empId;
         this.priority = priority;
         this.complete = complete;
     }
 
     public Task(long id, boolean enabled, LocalDateTime createAt, LocalDateTime updateAt, long createBy, long updateBy,
-                String title, TaskType taskType, String description, LocalDateTime dateWhen, long empId, Priority priority, Complete complete) {
+                String title, TaskType taskType, String description, LocalDateTime startTime, LocalDateTime endTime, long empId, Priority priority, Complete complete) {
         super(id, enabled, createAt, updateAt, createBy, updateBy);
         this.title = title;
         this.taskType = taskType;
         this.description = description;
-        this.dateWhen = dateWhen;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.empId = empId;
         this.priority = priority;
         this.complete = complete;
@@ -84,13 +88,20 @@ public class Task extends AbstractEntity {
         this.taskType = taskType;
     }
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    public LocalDateTime getDateWhen() {
-        return dateWhen;
+    public LocalDateTime getStartTime() {
+        return startTime;
     }
 
-    public void setDateWhen(LocalDateTime dateWhen) {
-        this.dateWhen = dateWhen;
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
     }
 
     public long getEmpId() {

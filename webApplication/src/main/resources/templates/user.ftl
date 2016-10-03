@@ -14,6 +14,10 @@
     </script>
 </head>
 <body>
+
+<a onclick="hidetxt('addUser'); return false;" href="#" rel="nofollow">add user</a>
+<br><br>
+<#include "head.ftl">
 <#if !users?has_content>
 There are currently haven't any users.
 <#else>
@@ -48,7 +52,7 @@ There are currently haven't any users.
         <form action="/user/edit" method="post">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <table>
-                <tr>
+                <tr style="display: none;">
                     <td><label for="id">Id:</label> </td>
                     <td><input type="number" name="id" value="${user.id}"></td>
                 </tr>
@@ -104,5 +108,46 @@ There are currently haven't any users.
     </div>
     </#list>
 </#if>
+
+<div id="addUser" style="display: none;">
+    <form action="/user/add" name="employee"  method="post">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        <table style="border: 1px solid;">
+            <tr>
+                <td><label for="username">Username:</label> </td>
+                <td><input type="text" name="username"></td>
+            </tr>
+            <tr>
+                <td><label for="password">Pass:</label> </td>
+                <td><input type="password" name="password"></td>
+            </tr>
+            <tr>
+                <td><label for="roles">Roles:</label> </td>
+                <td>
+                    <select name="roles">
+                    <#list roles as role>
+                        <option value="${role.roleName}">
+                        ${role.roleName}
+                        </option>
+                    </#list>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="empId">Employee:</label> </td>
+                <td>
+                    <select name="empId">
+                    <#list employees as employee>
+                        <option value="${employee.id}">
+                        ${employee.lastName}
+                        </option>
+                    </#list>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="add">
+    </form>
+</div>
 </body>
 </html>

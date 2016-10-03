@@ -36,7 +36,8 @@ public class DepartmentController {
         try {
             Department[] departments = restTemplate.getForObject(DEPARTMENT_REST + "/all", Department[].class);
             User[] users = restTemplate.getForObject(USER_REST + "/all", User[].class);
-
+            Employee employee = CurrentEmployee.getEmployee();
+            view.addObject("employee", employee);
             view.addObject("departments", departments);
             view.addObject("department", new Department());
             view.addObject("users", users);

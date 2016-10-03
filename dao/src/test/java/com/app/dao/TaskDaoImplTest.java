@@ -33,7 +33,7 @@ public class TaskDaoImplTest  extends Assert{
 
     @Test
     public void addTaskTest(){
-        Task task = new Task("new task", TaskType.CALL, "test", LocalDateTime.of(2016, 06, 06, 18, 00, 00), 2, Priority.HIGH, Complete.NOT);
+        Task task = new Task("new task", TaskType.CALL, "test", LocalDateTime.of(2016, 06, 06, 12, 00, 00), LocalDateTime.of(2016, 06, 06, 18, 00, 00), 2, Priority.HIGH, Complete.NOT);
         List<Task> tasksBeforeAdd = taskDao.getAllTasks();
         taskDao.addTask(task, "user");
         List<Task> tasksAfterAdd = taskDao.getAllTasks();
@@ -60,7 +60,7 @@ public class TaskDaoImplTest  extends Assert{
 
     @Test
     public void editTaskTest(){
-        Task task = new Task("new task", TaskType.CALL, "test", LocalDateTime.of(2016, 06, 06, 18, 00, 00), 2, Priority.MEDIUM, Complete.COMPLETE);
+        Task task = new Task("new task", TaskType.CALL, "test", LocalDateTime.of(2016, 06, 06, 2, 00, 00), LocalDateTime.of(2016, 06, 06, 18, 00, 00), 2, Priority.MEDIUM, Complete.COMPLETE);
         task.setId(1);
         taskDao.editTask(task, "user");
 

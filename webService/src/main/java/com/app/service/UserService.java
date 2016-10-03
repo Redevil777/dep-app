@@ -50,13 +50,17 @@ public class UserService {
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public ResponseEntity addUser(@RequestParam("username") String name,
                                   @RequestParam("password") String password,
-                                  @RequestParam("role") ArrayList<String> role){
+                                  @RequestParam("role") ArrayList<String> role,
+                                  @RequestParam("empId") long empId){
 
         System.out.println("hello"  + name);
         User user = new User();
         user.setUsername(name);
         user.setPassword(password);
         user.setEnabled(true);
+        user.setEmpId(empId);
+        System.out.println(role.get(0));
+
         try {
             userDao.addUser(user, role);
 

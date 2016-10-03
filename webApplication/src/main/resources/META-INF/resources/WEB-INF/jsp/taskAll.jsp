@@ -59,7 +59,7 @@
                 <td><c:out value="${task.taskType}"/></td>
                 <td><c:out value="${task.title}"/></td>
                 <td><c:out value="${task.description}"/></td>
-                <td><c:out value="${task.dateWhen}"/></td>
+                <td><c:out value="${task.startTime}"/></td>
                 <td><c:out value="${task.priority}"/></td>
                 <td><c:out value="${task.complete}"/></td>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">

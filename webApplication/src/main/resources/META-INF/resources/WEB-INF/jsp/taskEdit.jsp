@@ -55,8 +55,8 @@
                 <td><form:textarea path="description"/></td>
             </tr>
             <tr>
-                <td><form:label path="dateWhen">Date of end</form:label></td>
-                <td><form:input data-format="yyyy-MM-dd" type="date" path="dateWhen"/></td>
+                <td><form:label path="startTime">Date of end</form:label></td>
+                <td><form:input data-format="yyyy-MM-dd" type="date" path="startTime"/></td>
             </tr>
             <tr>
                 <td><form:label path="empId">Employee:</form:label></td>

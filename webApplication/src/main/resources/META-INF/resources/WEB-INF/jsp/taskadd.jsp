@@ -40,8 +40,8 @@
                 <td><form:textarea path="description"/></td>
             </tr>
             <tr>
-                <td><form:label path="dateWhen">Date of end:</form:label></td>
-                <td><form:input path="dateWhen" data-format="yyyy-MM-dd" type="date"/></td>
+                <td><form:label path="startTime">Date of end:</form:label></td>
+                <td><form:input path="startTime" data-format="yyyy-MM-dd" type="date"/></td>
             </tr>
             <tr>
                 <td><form:label path="priority">Priority:</form:label></td>

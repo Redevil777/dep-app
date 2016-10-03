@@ -60,7 +60,6 @@
             </div>
         </form>
     </div>
-
 </@security.authorize>
 
 </div>

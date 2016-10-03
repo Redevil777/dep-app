@@ -46,6 +46,9 @@ public class UserController {
 
             Employee[] employees = restTemplate.getForObject(EMPLOYEE_REST + "/all", Employee[].class);
 
+            Employee employee = CurrentEmployee.getEmployee();
+
+            view.addObject("employee", employee);
             view.addObject("users", users);
             view.addObject("roles", roles);
             view.addObject("employees", employees);
@@ -74,7 +77,8 @@ public class UserController {
     public ModelAndView AddUser(RedirectAttributes redirectAttributes,
                                 @RequestParam("username") String name,
                                 @RequestParam("password") String password,
-                                @RequestParam("roles") Set<Role> role){
+                                @RequestParam("roles") Set<Role> role,
+                                @RequestParam("empId") long empId){
 
         RestTemplate restTemplate = new RestTemplate();
         MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
@@ -89,7 +93,7 @@ public class UserController {
         map.add("username", name);
         map.add("password", password);
         map.add("role", roles);
-
+        map.add("empId", empId);
 
         try {
             restTemplate.postForObject(USER_REST + "/add",map, String.class);

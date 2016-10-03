@@ -26,14 +26,8 @@ public class WebApplication {
 	}
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView homePage() {
-		ModelAndView modelAndView = new ModelAndView("homePage");
+		ModelAndView modelAndView = new ModelAndView("redirect:/employee/all");
 
-		try {
-			Employee employee = CurrentEmployee.getEmployee();
-			modelAndView.addObject("employee", employee);
-		} catch (Exception e) {
-
-		}
 		return modelAndView;
 	}
 }

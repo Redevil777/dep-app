@@ -15,6 +15,7 @@
 
 </head>
 <body>
+<#include "head.ftl">
 <a onclick="hidetxt('addDep'); return false;" href="#" rel="nofollow ">add new department</a>
 <#if !departments?has_content>
 There are currently haven't any departments.

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -78,12 +79,18 @@ public class TaskService {
                                    @RequestParam("title") String title,
                                    @RequestParam("type") TaskType taskType,
                                    @RequestParam("description") String description,
-                                   @RequestParam("dateWhen") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dateWhen,
+                                   @RequestParam("startTime") String startTime,
+                                   @RequestParam("endTime") String endTime,
                                    @RequestParam("empId") long empId,
                                    @RequestParam("priority") Priority priority,
                                    @RequestParam("complete") Complete complete,
                                    @RequestParam("username") String username){
-        Task task = new Task(title, taskType, description, dateWhen, empId, priority, complete);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        LocalDateTime startTimeParse = LocalDateTime.parse(startTime, formatter);
+        LocalDateTime endTimeParse = LocalDateTime.parse(endTime, formatter);
+
+        Task task = new Task(title, taskType, description, startTimeParse, endTimeParse, empId, priority, complete);
         task.setId(id);
         try {
             taskDao.editTask(task, username);
@@ -94,23 +101,26 @@ public class TaskService {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ResponseEntity addTask(@RequestParam("id") long id ,
-                                  @RequestParam("title") String title,
+    public ResponseEntity addTask(@RequestParam("title") String title,
                                   @RequestParam("type") String type,
                                   @RequestParam("description") String description,
-                                  @RequestParam("dateWhen") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime dateWhen,
+                                  @RequestParam("startTime") String startTime,
+                                  @RequestParam("endTime") String endTime,
+                                  @RequestParam("empId") long empId,
                                   @RequestParam("priority") String priority,
                                   @RequestParam("username") String username){
 
-        System.out.println("qwe");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        LocalDateTime startTimeParse = LocalDateTime.parse(startTime, formatter);
+        LocalDateTime endTimeParse = LocalDateTime.parse(endTime, formatter);
 
         Task task = new Task();
         task.setTitle(title);
         task.setDescription(description);
-        task.setDateWhen(dateWhen);
-        System.out.println("hello");
-        System.out.println(dateWhen);
-        task.setEmpId(id);
+        task.setStartTime(startTimeParse);
+        task.setEndTime(endTimeParse);
+
+        task.setEmpId(empId);
         for(TaskType t:TaskType.values()){
             if(t.toString().equals(type)){
                 task.setTaskType(t);

@@ -59,7 +59,7 @@
                         </tr>
                         <tr>
                             <td>Date:</td>
-                            <td><c:out value="${task.dateWhen}"/></td>
+                            <td><c:out value="${task.startTime}"/></td>
                         </tr>
                         <tr>
                             <td>Priority:</td>

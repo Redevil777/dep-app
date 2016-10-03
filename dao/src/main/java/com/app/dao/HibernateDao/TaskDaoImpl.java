@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -73,7 +72,8 @@ public class TaskDaoImpl implements TaskDao {
         editTask.setComplete(task.getComplete());
         editTask.setDescription(task.getDescription());
         editTask.setTaskType(task.getTaskType());
-        editTask.setDateWhen(task.getDateWhen());
+        editTask.setStartTime(task.getStartTime());
+        editTask.setEndTime(task.getEndTime());
         editTask.setEmpId(task.getEmpId());
         editTask.setPriority(task.getPriority());
         editTask.setUpdateBy(userId);
