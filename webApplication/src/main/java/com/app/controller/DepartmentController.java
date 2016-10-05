@@ -34,14 +34,18 @@ public class DepartmentController {
         RestTemplate restTemplate = new RestTemplate();
 
         try {
+            System.out.println("hello");
             Department[] departments = restTemplate.getForObject(DEPARTMENT_REST + "/all", Department[].class);
+            System.out.println(departments.length);
             User[] users = restTemplate.getForObject(USER_REST + "/all", User[].class);
+            System.out.println(users.length);
             Employee employee = CurrentEmployee.getEmployee();
             view.addObject("employee", employee);
             view.addObject("departments", departments);
             view.addObject("department", new Department());
             view.addObject("users", users);
         } catch (Exception e) {
+            System.out.println("catch");
             view.addObject("error", "Not found any departments.");
         }
         return view;

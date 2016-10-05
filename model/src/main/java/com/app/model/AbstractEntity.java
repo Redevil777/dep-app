@@ -17,10 +17,10 @@ public abstract class AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private boolean enabled;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     @Column(name = "create_at")
     private LocalDateTime createAt;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     @Column(name = "update_at")
     private LocalDateTime updateAt;
     @Column(name = "create_by")
@@ -60,7 +60,7 @@ public abstract class AbstractEntity {
         this.enabled = enabled;
     }
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     public LocalDateTime getCreateAt() {
         return createAt;
     }
@@ -69,7 +69,7 @@ public abstract class AbstractEntity {
         this.createAt = createAt;
     }
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     public LocalDateTime getUpdateAt() {
         return updateAt;
     }
