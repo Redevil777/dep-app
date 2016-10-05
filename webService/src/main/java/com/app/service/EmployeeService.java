@@ -39,7 +39,7 @@ public class EmployeeService {
     public ResponseEntity addEmployee(@RequestParam("firstName") String fname,
                                       @RequestParam("lastName") String lname,
                                       @RequestParam("middleName") String mname,
-                                      @RequestParam("birthday") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday,
+                                      @RequestParam("birthday") String birthday,
                                       @RequestParam("email") String email,
                                       @RequestParam("phone") String phone,
                                       @RequestParam("address") String address,
@@ -57,8 +57,8 @@ public class EmployeeService {
                 .setAddress(address)
                 .setSalary(salary)
                 .setDepId(dep_id)
-                .setCreateAt(LocalDateTime.now())
-                .setUpdateAt(LocalDateTime.now())
+                .setCreateAt(LocalDateTime.now().toString())
+                .setUpdateAt(LocalDateTime.now().toString())
                 .setEnabled(true)
                 .setCreateBy(1)
                 .setUpdateBy(1)
@@ -103,7 +103,7 @@ public class EmployeeService {
                                        @RequestParam("firstName") String fname,
                                        @RequestParam("lastName") String lname,
                                        @RequestParam("middleName") String mname,
-                                       @RequestParam("birthday") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday,
+                                       @RequestParam("birthday") @DateTimeFormat(pattern = "yyyy-MM-dd") String birthday,
                                        @RequestParam("email") String email,
                                        @RequestParam("phone") String phone,
                                        @RequestParam("address") String address,

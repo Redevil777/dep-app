@@ -23,9 +23,8 @@ public class Employee extends AbstractEntity{
     private String lastName;
     @Column(name = "middle_name")
     private String middleName;
-    @JsonFormat(pattern="yyyy-MM-dd")
     @Column(name = "birthday")
-    private LocalDate birthday;
+    private String birthday;
     @Column(name = "email")
     private String email;
     @Column(name = "phone")
@@ -40,7 +39,7 @@ public class Employee extends AbstractEntity{
 
     }
 
-    public Employee(long id, boolean enabled, LocalDateTime createAt, LocalDateTime updateAt, long createBy, long updateBy, String firstName, String lastName, String middleName, LocalDate birthday, String email, String phone, String address, long salary, long depId) {
+    public Employee(long id, boolean enabled, String createAt, String updateAt, long createBy, long updateBy, String firstName, String lastName, String middleName, String birthday, String email, String phone, String address, long salary, long depId) {
         super(id, enabled, createAt, updateAt, createBy, updateBy);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -77,11 +76,11 @@ public class Employee extends AbstractEntity{
         this.middleName = middleName;
     }
 
-    public LocalDate getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 

@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -90,13 +91,24 @@ public class UserController {
             roles.add(q.getRoleName());
         }
 
+        User user = new User();
+        user.setUsername(name);
+        user.setPassword(password);
+        user.setRoles(role);
+        user.setEmpId(empId);
+
+        System.out.println(user.getUsername());
+        System.out.println(user.getPassword());
+        System.out.println(user.getRoles());
+        System.out.println(user.getEmpId());
+
         map.add("username", name);
         map.add("password", password);
         map.add("role", roles);
         map.add("empId", empId);
 
         try {
-            restTemplate.postForObject(USER_REST + "/add",map, String.class);
+            restTemplate.postForObject(USER_REST + "/add", user, User.class);
             return new ModelAndView("redirect:/user/all");
         } catch (Exception e){
             redirectAttributes.addFlashAttribute("error", "User can not add.");
@@ -163,6 +175,18 @@ public class UserController {
 
         RestTemplate restTemplate = new RestTemplate();
 
+        Set<Role> roles = new HashSet<>();
+        Role r = new Role();
+        r.setRoleName(role);
+        roles.add(r);
+
+        User user = new User();
+        user.setId(Integer.valueOf(id));
+        user.setUsername(name);
+        user.setPassword(password);
+        user.setRoles(roles);
+        user.setEmpId(Integer.valueOf(empId));
+
         try {
             MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
             map.add("id", id);
@@ -170,7 +194,7 @@ public class UserController {
             map.add("password", password);
             map.add("role", role);
             map.add("empId", empId);
-            restTemplate.postForObject(USER_REST + "/edit", map, String.class);
+            restTemplate.postForObject(USER_REST + "/edit", user, User.class);
 
             redirectAttributes.addFlashAttribute("message", "User edited");
         } catch (Exception e) {

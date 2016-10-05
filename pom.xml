@@ -10,6 +10,7 @@
 		<module>model</module>
 		<module>dao</module>
 		<module>webService</module>
+		<module>serviceCamel</module>
 		<module>webApplication</module>
 	</modules>
 	<packaging>pom</packaging>

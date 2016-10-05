@@ -90,6 +90,18 @@ public class EmployeeController {
 
         String userName = CurrentUserName.getCurrentUserName();
 
+        Employee employee = new EmployeeBuilder()
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setMiddleName(middleName)
+                .setBirthday(birthday.toString())
+                .setEmail(email)
+                .setPhone(phone)
+                .setAddress(address)
+                .setSalary(salary)
+                .setDepId(dep_id)
+                .createEmployee();
+
         try {
             MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
             map.add("firstName", firstName);
@@ -103,7 +115,7 @@ public class EmployeeController {
             map.add("depId", dep_id.toString());
             map.add("userName", userName);
 
-            restTemplate.postForObject(EMPLOYEE_REST + "/add", map, String.class);
+            restTemplate.postForObject(EMPLOYEE_REST + "/add", employee, Employee.class);
 
             redirectAttributes.addFlashAttribute("message", "New employee added.");
             return new ModelAndView("redirect:/employee/all");
@@ -127,11 +139,15 @@ public class EmployeeController {
 
         MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 
+        Employee employee = new EmployeeBuilder()
+                .setId(id)
+                .createEmployee();
+
         String userName = CurrentUserName.getCurrentUserName();
         map.add("userName", userName);
 
         try {
-            restTemplate.postForObject(EMPLOYEE_REST + "/delete/" + id, map, String.class);
+            restTemplate.postForObject(EMPLOYEE_REST + "/delete", employee, Employee.class);
 
             redirectAttributes.addFlashAttribute("message", "employee deleted");
         } catch (Exception e) {
@@ -165,9 +181,9 @@ public class EmployeeController {
     @PreAuthorize("hasAuthority('EDIT_EMPLOYEE_POST')")
     public ModelAndView saveEdit(RedirectAttributes redirectAttributes,
                                  @RequestParam("id") String id,
-                                 @RequestParam("firstName") String fname,
-                                 @RequestParam("lastName") String lname,
-                                 @RequestParam("middleName") String mname,
+                                 @RequestParam("firstName") String firstName,
+                                 @RequestParam("lastName") String lastName,
+                                 @RequestParam("middleName") String middleName,
                                  @RequestParam("birthday") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday,
                                  @RequestParam("email") String email,
                                  @RequestParam("phone") String phone,
@@ -179,14 +195,27 @@ public class EmployeeController {
 
         RestTemplate restTemplate = new RestTemplate();
 
+        Employee employee = new EmployeeBuilder()
+                .setId(Integer.valueOf(id))
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setMiddleName(middleName)
+                .setBirthday(birthday.toString())
+                .setEmail(email)
+                .setPhone(phone)
+                .setAddress(address)
+                .setSalary(salary)
+                .setDepId(dep_id)
+                .createEmployee();
+
         String userName = CurrentUserName.getCurrentUserName();
 
         try {
             MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
             map.add("id", id);
-            map.add("firstName", fname);
-            map.add("lastName", lname);
-            map.add("middleName", mname);
+            map.add("firstName", firstName);
+            map.add("lastName", lastName);
+            map.add("middleName", middleName);
             map.add("birthday", birthday.toString());
             map.add("email", email);
             map.add("phone", phone);
@@ -195,7 +224,7 @@ public class EmployeeController {
             map.add("depId", dep_id.toString());
             map.add("userName", userName);
 
-            restTemplate.postForObject(EMPLOYEE_REST + "/edit", map, String.class);
+            restTemplate.postForObject(EMPLOYEE_REST + "/edit", employee, Employee.class);
 
             redirectAttributes.addFlashAttribute("message", "employee edited");
         } catch (Exception e) {
@@ -205,11 +234,7 @@ public class EmployeeController {
         return view;
     }
 
-    /**
-     *
-     * @param date
-     * @return
-     */
+
     @RequestMapping(value = "/date", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('EMPLOYEE_BY_DOB')")
     public ModelAndView getEmployeesByDateOfBirth(

@@ -39,7 +39,7 @@ public class EmployeeDaoImplTest extends Assert {
         List<Employee> employees = employeeDao.getAllEmployees();
         Employee employee = createNewEmployee();
 
-        employeeDao.addEmployee(employee, "user");
+        employeeDao.addEmployee(employee);
 
         List<Employee> employeesAfterAdd = employeeDao.getAllEmployees();
 
@@ -49,7 +49,7 @@ public class EmployeeDaoImplTest extends Assert {
     @Test
     public void deleteEmployeeByIdTest(){
         List<Employee> employees = employeeDao.getAllEmployees();
-        employeeDao.deleteEmployeeById(1, "user");
+        employeeDao.deleteEmployeeById(new Employee());
         List<Employee> employeesAfterDel = employeeDao.getAllEmployees();
 
         assertEquals(employees.size(), employeesAfterDel.size()+1);
@@ -66,7 +66,7 @@ public class EmployeeDaoImplTest extends Assert {
     public void editEmployeeTest(){
         Employee employee = createNewEmployee();
         employee.setId(1);
-        employeeDao.editEmployee(employee, "user");
+        employeeDao.editEmployee(employee);
         Employee employeeEdited = employeeDao.getEmployeeById(1);
 
         assertEquals("test", employeeEdited.getFirstName());
@@ -110,7 +110,7 @@ public class EmployeeDaoImplTest extends Assert {
                 .setFirstName("test")
                 .setLastName("test")
                 .setMiddleName("test")
-                .setBirthday(LocalDate.of(1111, 11, 11))
+                //.setBirthday(LocalDate.of(1111, 11, 11))
                 .setEmail("test")
                 .setPhone("12345")
                 .setAddress("test")

@@ -6,14 +6,14 @@ import java.time.LocalDateTime;
 public class EmployeeBuilder {
     private long id;
     private boolean enabled;
-    private LocalDateTime createAt;
-    private LocalDateTime updateAt;
+    private String createAt;
+    private String updateAt;
     private long createBy;
     private long updateBy;
     private String firstName;
     private String lastName;
     private String middleName;
-    private LocalDate birthday;
+    private String birthday;
     private String email;
     private String phone;
     private String address;
@@ -30,12 +30,12 @@ public class EmployeeBuilder {
         return this;
     }
 
-    public EmployeeBuilder setCreateAt(LocalDateTime createAt) {
+    public EmployeeBuilder setCreateAt(String createAt) {
         this.createAt = createAt;
         return this;
     }
 
-    public EmployeeBuilder setUpdateAt(LocalDateTime updateAt) {
+    public EmployeeBuilder setUpdateAt(String updateAt) {
         this.updateAt = updateAt;
         return this;
     }
@@ -65,7 +65,7 @@ public class EmployeeBuilder {
         return this;
     }
 
-    public EmployeeBuilder setBirthday(LocalDate birthday) {
+    public EmployeeBuilder setBirthday(String birthday) {
         this.birthday = birthday;
         return this;
     }

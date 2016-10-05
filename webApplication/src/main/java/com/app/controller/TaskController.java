@@ -77,7 +77,9 @@ public class TaskController {
                 .collect(Collectors.toList());
         try {
             Employee employee = CurrentEmployee.getEmployee();
+            System.out.println("hello");
             Task[] tasks = restTemplate.getForObject(TASK_REST + "/tasks/" + id, Task[].class);
+            System.out.println("try");
             view.addObject("tasks", tasks);
             view.addObject("employee", employee);
             view.addObject("types", types);
@@ -85,6 +87,7 @@ public class TaskController {
             view.addObject("complete", complete);
             return view;
         } catch (Exception e){
+            System.out.println("catch");
             return view;
         }
     }
@@ -130,6 +133,16 @@ public class TaskController {
 
         String username = CurrentUserName.getCurrentUserName();
 
+        Task task = new Task();
+        task.setTitle(title);
+        task.setTaskType(TaskType.valueOf(type));
+        task.setDescription(description);
+        task.setStartTime(startTime);
+        task.setEndTime(endTime);
+        task.setEmpId(empId);
+        task.setPriority(Priority.valueOf(priority));
+
+
         MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
         map.add("title", title);
         map.add("type", type);
@@ -140,7 +153,7 @@ public class TaskController {
         map.add("priority", priority);
         map.add("username", username);
         try {
-            restTemplate.postForObject(TASK_REST + "/add", map, String.class);
+            restTemplate.postForObject(TASK_REST + "/add", task, Task.class);
             return view;
         } catch (Exception e) {
             return view;
@@ -193,8 +206,24 @@ public class TaskController {
 
         RestTemplate restTemplate = new RestTemplate();
 
+        Task task = new Task();
+        task.setId(id);
+        task.setTitle(title);
+        task.setTaskType(TaskType.valueOf(type));
+        task.setDescription(description);
+        task.setStartTime(startTime);
+        task.setEndTime(endTime);
+        task.setComplete(Complete.valueOf(complete));
+        task.setEmpId(empId);
+        task.setPriority(Priority.valueOf(priority));
+
+        System.out.println(task.getPriority());
+        System.out.println(task.getComplete());
+        System.out.println(task.getTaskType());
+
+
         String userName = CurrentUserName.getCurrentUserName();
-        ;
+
         try {
             MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
             map.add("id", id);
@@ -208,7 +237,7 @@ public class TaskController {
             map.add("complete", complete);
             map.add("username", userName);
 
-            restTemplate.postForObject(TASK_REST + "/edit", map, String.class);
+            restTemplate.postForObject(TASK_REST + "/edit", task, Task.class);
             return view;
         } catch (Exception e){
             return view;

@@ -21,12 +21,10 @@ public class Task extends AbstractEntity {
     private TaskType taskType;
     @Column(name = "description")
     private String description;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     @Column(name = "start_time")
-    private LocalDateTime startTime;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    private String startTime;
     @Column(name = "end_time")
-    private LocalDateTime endTime;
+    private String endTime;
     @Column(name = "emp_id")
     private long empId;
     @Enumerated(EnumType.STRING)
@@ -40,7 +38,7 @@ public class Task extends AbstractEntity {
 
     }
 
-    public Task(String title, TaskType taskType, String description, LocalDateTime startTime, LocalDateTime endTime, long empId, Priority priority, Complete complete) {
+    public Task(String title, TaskType taskType, String description, String startTime, String endTime, long empId, Priority priority, Complete complete) {
         this.title = title;
         this.taskType = taskType;
         this.description = description;
@@ -51,8 +49,8 @@ public class Task extends AbstractEntity {
         this.complete = complete;
     }
 
-    public Task(long id, boolean enabled, LocalDateTime createAt, LocalDateTime updateAt, long createBy, long updateBy,
-                String title, TaskType taskType, String description, LocalDateTime startTime, LocalDateTime endTime, long empId, Priority priority, Complete complete) {
+    public Task(long id, boolean enabled, String createAt, String updateAt, long createBy, long updateBy,
+                String title, TaskType taskType, String description, String startTime, String endTime, long empId, Priority priority, Complete complete) {
         super(id, enabled, createAt, updateAt, createBy, updateBy);
         this.title = title;
         this.taskType = taskType;
@@ -88,19 +86,19 @@ public class Task extends AbstractEntity {
         this.taskType = taskType;
     }
 
-    public LocalDateTime getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 

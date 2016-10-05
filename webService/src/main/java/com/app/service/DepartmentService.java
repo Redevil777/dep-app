@@ -1,18 +1,14 @@
 package com.app.service;
 
 import com.app.dao.DepartmentDao;
-import com.app.dao.HibernateDao.DepartmentDaoImpl;
 import com.app.model.Department;
+import com.app.model.DepartmentBuilder;
 import com.app.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,17 +30,17 @@ public class DepartmentService {
     }
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
-    public ResponseEntity addDepartment(@RequestParam("depName") String depName,
-                                        @RequestParam("userName") String userName){
+    public ResponseEntity addDepartment(@RequestBody Department department){
 
-        Department department = new Department(depName);
+        //Department department = new DepartmentBuilder().setDepName(depName).createDepartment();
         try {
-            departmentDao.addDepartment(department, userName);
+            departmentDao.addDepartment(department);
             return new ResponseEntity("", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity(e.getMessage(),  HttpStatus.BAD_REQUEST);
         }
     }
+
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     public ResponseEntity<Department> getDepartmentById(@PathVariable("id") Long id) {
@@ -64,10 +60,10 @@ public class DepartmentService {
                                          @RequestParam("depName") String name,
                                          @RequestParam("userName") String userName){
 
-        Department department = new Department(id, name);
+        Department department = new DepartmentBuilder().setId(id).setDepName(name).createDepartment();
 
         try {
-            departmentDao.editDepartment(department, userName);
+            departmentDao.editDepartment(department);
             return new ResponseEntity("", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity("Check input data!", HttpStatus.BAD_REQUEST);
@@ -77,8 +73,11 @@ public class DepartmentService {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public ResponseEntity deleteDepartment(@PathVariable("id") long id,
                                            @RequestParam("userName") String userName){
+
+        Department department = new Department();
+        department.setId(id);
         try {
-            String message = departmentDao.deleteDepartmentById(id, userName);
+            String message = departmentDao.deleteDepartmentById(department);
             if(message.equals("neOk")) throw new Exception();
             return new ResponseEntity("", HttpStatus.OK);
         } catch(Exception e) {

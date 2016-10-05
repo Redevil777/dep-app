@@ -1,6 +1,7 @@
 package com.app.dao;
 
 import com.app.model.Department;
+import com.app.model.DepartmentBuilder;
 import com.app.model.Employee;
 import org.junit.Assert;
 import org.junit.Test;
@@ -24,8 +25,8 @@ public class DepartmentDaoImplTest extends Assert {
     @Test
     public void addDepartmentTest(){
         List<Department> departments = departmentDao.getAllDepartments();
-        Department department = new Department("test");
-        departmentDao.addDepartment(department, "user");
+        Department department = new DepartmentBuilder().setDepName("test").createDepartment();
+        departmentDao.addDepartment(department);
         List<Department> departmentsAfterAdd = departmentDao.getAllDepartments();
         System.out.println(departmentsAfterAdd.get(0).getCreateAt());
         assertEquals(departments.size(), departmentsAfterAdd.size()-1);
@@ -40,9 +41,9 @@ public class DepartmentDaoImplTest extends Assert {
 
     @Test
     public void deleteDepartmentByIdTest(){
-        departmentDao.addDepartment(new Department("qwe"), "user");
+        departmentDao.addDepartment(new DepartmentBuilder().setDepName("qwe").createDepartment());
         List<Department> departments = departmentDao.getAllDepartments();
-        departmentDao.deleteDepartmentById(5l, "user");
+        departmentDao.deleteDepartmentById(new DepartmentBuilder().createDepartment());
         List<Department> departmentsAfterDel = departmentDao.getAllDepartments();
 
         assertEquals(departments.size(), departmentsAfterDel.size()+1);
@@ -57,9 +58,9 @@ public class DepartmentDaoImplTest extends Assert {
 
     @Test
     public void editDepartmentTest(){
-        Department department = new Department(2, "test");
+        Department department = new DepartmentBuilder().setId(2).setDepName("test").createDepartment();
 
-        departmentDao.editDepartment(department, "user");
+        departmentDao.editDepartment(department);
 
         Department departmentEdited = departmentDao.getDepartmentById(2);
 

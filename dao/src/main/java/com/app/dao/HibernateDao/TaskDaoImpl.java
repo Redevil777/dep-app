@@ -42,31 +42,25 @@ public class TaskDaoImpl implements TaskDao {
     }
 
     @Override
-    public void addTask(Task task, String username) {
-        long userId = getUserById(username);
+    public void addTask(Task task) {
 
         task.setEnabled(true);
-        task.setCreateBy(userId);
-        task.setUpdateBy(userId);
-        task.setCreateAt(LocalDateTime.now());
-        task.setUpdateAt(LocalDateTime.now());
+        task.setCreateAt(LocalDateTime.now().toString());
+        task.setUpdateAt(LocalDateTime.now().toString());
         task.setComplete(Complete.NOT);
         getSession().save(task);
     }
 
     @Override
-    public void deleteTaskById(long id, String username) {
-        long userId = getUserById(username);
-        Task task = getTaskById(id);
+    public void deleteTaskById(Task task) {
+        Task task1 = getTaskById(task.getId());
         task.setEnabled(false);
-        task.setUpdateBy(userId);
-        task.setUpdateAt(LocalDateTime.now());
-        getSession().update(task);
+        task.setUpdateAt(LocalDateTime.now().toString());
+        getSession().update(task1);
     }
 
     @Override
-    public void editTask(Task task, String username) {
-        long userId = getUserById(username);
+    public void editTask(Task task) {
         Task editTask = getTaskById(task.getId());
         editTask.setTitle(task.getTitle());
         editTask.setComplete(task.getComplete());
@@ -76,8 +70,7 @@ public class TaskDaoImpl implements TaskDao {
         editTask.setEndTime(task.getEndTime());
         editTask.setEmpId(task.getEmpId());
         editTask.setPriority(task.getPriority());
-        editTask.setUpdateBy(userId);
-        editTask.setUpdateAt(LocalDateTime.now());
+        editTask.setUpdateAt(LocalDateTime.now().toString());
 
         getSession().update(editTask);
     }

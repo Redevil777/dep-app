@@ -43,26 +43,23 @@ public class DepartmentDaoImpl implements DepartmentDao {
     }
 
     @Override
-    public void addDepartment(Department department, String username) {
-        long userId = getUserById(username);
+    public void addDepartment(Department department) {
 
-        department.setCreateAt(LocalDateTime.now());
-        department.setUpdateAt(LocalDateTime.now());
+        department.setCreateAt(LocalDateTime.now().toString());
+        department.setUpdateAt(LocalDateTime.now().toString());
         department.setEnabled(true);
-        department.setCreateBy(userId);
-        department.setUpdateBy(userId);
 
         getSession().save(department);
     }
 
     @Override
-    public String deleteDepartmentById(long id, String username) {
-        long userId = getUserById(username);
-        Department department = getDepartmentById(id);
-        List<Employee> employees = getEmployeesBySelectedDepartment(id);
+    public String deleteDepartmentById(Department department1) {
+        System.out.println("hello");
+        System.out.println(department1.getId());
+        Department department = getDepartmentById(department1.getId());
+        List<Employee> employees = getEmployeesBySelectedDepartment(department.getId());
         if(employees.size()==0){
-            department.setUpdateBy(userId);
-            department.setUpdateAt(LocalDateTime.now());
+            department.setUpdateAt(LocalDateTime.now().toString());
             department.setEnabled(false);
             getSession().update(department);
             return "Ok";
@@ -72,12 +69,10 @@ public class DepartmentDaoImpl implements DepartmentDao {
     }
 
     @Override
-    public void editDepartment(Department department, String username) {
-        long userId = getUserById(username);
+    public void editDepartment(Department department) {
         Department departmentEdit = getDepartmentById(department.getId());
-        departmentEdit.setUpdateAt(LocalDateTime.now());
+        departmentEdit.setUpdateAt(LocalDateTime.now().toString());
         departmentEdit.setDepName(department.getDepName());
-        departmentEdit.setUpdateBy(userId);
         getSession().update(departmentEdit);
     }
 

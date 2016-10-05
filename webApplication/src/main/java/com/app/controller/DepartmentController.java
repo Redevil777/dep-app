@@ -1,6 +1,7 @@
 package com.app.controller;
 
 import com.app.model.Department;
+import com.app.model.DepartmentBuilder;
 import com.app.model.Employee;
 import com.app.model.User;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -39,9 +40,10 @@ public class DepartmentController {
             Employee employee = CurrentEmployee.getEmployee();
             view.addObject("employee", employee);
             view.addObject("departments", departments);
-            view.addObject("department", new Department());
+            view.addObject("department", new DepartmentBuilder().createDepartment());
             view.addObject("users", users);
         } catch (Exception e) {
+            System.out.println("catch");
             view.addObject("error", "Not found any departments.");
         }
         return view;
@@ -53,7 +55,7 @@ public class DepartmentController {
 
         ModelAndView view = new ModelAndView("departmentadd");
 
-        view.addObject("department", new Department());
+        view.addObject("department", new DepartmentBuilder().createDepartment());
         return view;
     }
 
@@ -70,8 +72,11 @@ public class DepartmentController {
         map.add("depName", depName);
         map.add("userName", userName);
 
+        Department department = new DepartmentBuilder().createDepartment();
+        department.setDepName(depName);
+
         try {
-            restTemplate.postForObject(DEPARTMENT_REST + "/add",map, String.class);
+            restTemplate.postForObject(DEPARTMENT_REST + "/add", department, Department.class);
             redirectAttributes.addFlashAttribute("message", "New department added.");
             return new ModelAndView("redirect:/department/all");
         } catch (Exception e){
@@ -87,16 +92,20 @@ public class DepartmentController {
                                              @PathVariable long id) {
 
         ModelAndView view = new ModelAndView("redirect:/department/all");
+        System.out.println(id);
 
         MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 
         String userName = CurrentUserName.getCurrentUserName();
         map.add("userName", userName);
+        Department department = new Department();
+        department.setId(id);
+        System.out.println(department.getId());
 
         try {
             RestTemplate restTemplate = new RestTemplate();
 
-            restTemplate.postForObject(DEPARTMENT_REST + "/delete/" + id, map, String.class);
+            restTemplate.postForObject(DEPARTMENT_REST + "/delete", department, Department.class);
             redirectAttributes.addFlashAttribute("message", "Department deleted");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute( "error", "Can't remove department with id = " + id);
@@ -127,7 +136,7 @@ public class DepartmentController {
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @PreAuthorize("hasAuthority('EDIT_DEPARTMENT_POST')")
     public ModelAndView saveEditDepartment(RedirectAttributes redirectAttributes,
-                                           @RequestParam("id")   String   id,
+                                           @RequestParam("id")   long   id,
                                            @RequestParam("depName") String name){
         ModelAndView view = new ModelAndView("redirect:/department/all");
 
@@ -135,12 +144,16 @@ public class DepartmentController {
 
         String userName = CurrentUserName.getCurrentUserName();
 
+        Department department = new DepartmentBuilder().createDepartment();
+        department.setId(id);
+        department.setDepName(name);
+
         try {
             MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-            map.add("id", id);
+            map.add("id", String.valueOf(id));
             map.add("depName", name);
             map.add("userName", userName);
-            restTemplate.postForObject(DEPARTMENT_REST + "/edit", map, String.class);
+            restTemplate.postForObject(DEPARTMENT_REST + "/edit", department, Department.class);
 
             redirectAttributes.addFlashAttribute("message", "Department edited");
         } catch (Exception e) {

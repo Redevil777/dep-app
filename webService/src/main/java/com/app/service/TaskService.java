@@ -90,7 +90,7 @@ public class TaskService {
         LocalDateTime startTimeParse = LocalDateTime.parse(startTime, formatter);
         LocalDateTime endTimeParse = LocalDateTime.parse(endTime, formatter);
 
-        Task task = new Task(title, taskType, description, startTimeParse, endTimeParse, empId, priority, complete);
+        Task task = new Task(title, taskType, description, startTime, endTime, empId, priority, complete);
         task.setId(id);
         try {
             taskDao.editTask(task, username);
@@ -117,8 +117,8 @@ public class TaskService {
         Task task = new Task();
         task.setTitle(title);
         task.setDescription(description);
-        task.setStartTime(startTimeParse);
-        task.setEndTime(endTimeParse);
+        task.setStartTime(startTime);
+        task.setEndTime(endTime);
 
         task.setEmpId(empId);
         for(TaskType t:TaskType.values()){

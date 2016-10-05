@@ -13,11 +13,11 @@ import java.util.List;
 
 public interface DepartmentDao {
 
-    public void addDepartment(Department department, String username);
+    public void addDepartment(Department department);
 
-    public String deleteDepartmentById(long id, String username);
+    public String deleteDepartmentById(Department department);
 
-    public void editDepartment(Department department, String username);
+    public void editDepartment(Department department);
 
     public List<Department> getAllDepartments();
 

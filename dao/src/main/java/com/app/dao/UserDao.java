@@ -9,11 +9,11 @@ import java.util.List;
  * Created by andrei on 15.09.16.
  */
 public interface UserDao {
-    public void addUser(User user, ArrayList<String> roles);
+    public void addUser(User user);
 
     public void deleteUserById(long id);
 
-    public void editUser(User user, String role);
+    public void editUser(User user);
 
     public List<User> getAllUsers();
 

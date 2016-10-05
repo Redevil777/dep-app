@@ -1,6 +1,7 @@
 package com.app;
 
 import com.app.model.Department;
+import com.app.model.DepartmentBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -72,7 +73,7 @@ public class DepartmentServiceTest {
     @Test
     public void addDepartmentWithNullNameTest() throws Exception {
 
-        Department department = new Department();
+        Department department = new DepartmentBuilder().createDepartment();
         department.setDepName(null);
         this.mvc.perform(
                 post("/department/add")

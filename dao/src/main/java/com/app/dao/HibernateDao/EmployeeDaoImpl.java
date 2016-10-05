@@ -46,34 +46,27 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public void addEmployee(Employee employee, String username) {
-        long userId = getUserId(username);
-        employee.setCreateAt(LocalDateTime.now());
-        employee.setUpdateAt(LocalDateTime.now());
+    public void addEmployee(Employee employee) {
+        employee.setCreateAt(LocalDateTime.now().toString());
+        employee.setUpdateAt(LocalDateTime.now().toString());
         employee.setEnabled(true);
-        employee.setCreateBy(userId);
-        employee.setUpdateBy(userId);
 
         getSession().save(employee);
     }
 
     @Override
-    public void deleteEmployeeById(long id, String username) {
-        long userId = getUserId(username);
-        Employee employee = getEmployeeById(id);
-        employee.setUpdateAt(LocalDateTime.now());
-        employee.setUpdateBy(userId);
-        employee.setEnabled(false);
+    public void deleteEmployeeById(Employee employee) {
+        Employee employeeEdit = getEmployeeById(employee.getId());
+        employeeEdit.setUpdateAt(LocalDateTime.now().toString());
+        employeeEdit.setEnabled(false);
 
-        getSession().update(employee);
+        getSession().update(employeeEdit);
     }
 
     @Override
-    public void editEmployee(Employee employee, String username) {
-        long userId = getUserId(username);
+    public void editEmployee(Employee employee) {
         Employee employeeEdit = getEmployeeById(employee.getId());
-        employeeEdit.setUpdateAt(LocalDateTime.now());
-        employeeEdit.setUpdateBy(userId);
+        employeeEdit.setUpdateAt(LocalDateTime.now().toString());
         employeeEdit.setFirstName(employee.getFirstName());
         employeeEdit.setLastName(employee.getLastName());
         employeeEdit.setMiddleName(employee.getMiddleName());

@@ -38,7 +38,7 @@ public class UserDaoImplTest extends Assert {
         ArrayList<String> list = new ArrayList<>();
         String role = "[ ROLE_ADMIN ]";
         list.add(role);
-        userDao.addUser(user, list);
+        userDao.addUser(user);
         List<User> usersAfterAdd = userDao.getAllUsers();
 
         assertEquals(users.size(), usersAfterAdd.size()-1);
@@ -56,7 +56,7 @@ public class UserDaoImplTest extends Assert {
     @Test
     public void editUserTest(){
         User user = new User(1, "test", "test", true, 1);
-        userDao.editUser(user, "ROLE_ADMIN");
+        userDao.editUser(user);
         User userEdited = userDao.getUserById(1);
 
         assertEquals(user.getUsername(), userEdited.getUsername());

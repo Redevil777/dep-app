@@ -58,7 +58,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void addUser(User user, ArrayList<String> roles) {
+    public void addUser(User user) {
         try {
             User userCheck = getUserByName(user.getUsername());
             String message = "The user [" + userCheck.getUsername() + "] already exists";
@@ -68,7 +68,7 @@ public class UserDaoImpl implements UserDao {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
 
             getSession().save(user);
-            User addedUser = getUserByName(user.getUsername());
+           /* User addedUser = getUserByName(user.getUsername());
             for (int i = 0; i < roles.size(); i++){
                 String qwe = roles.get(i);
                 qwe = qwe.substring(2, qwe.length()-2);
@@ -86,7 +86,7 @@ public class UserDaoImpl implements UserDao {
                         query.executeUpdate();
                     }
                 }
-            }
+            }*/
         }
     }
 
@@ -99,14 +99,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void editUser(User user, String role) {
+    public void editUser(User user) {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         User userEdit = getUserById(user.getId());
         userEdit.setUsername(user.getUsername());
         userEdit.setPassword(passwordEncoder.encode(user.getPassword()));
         userEdit.setEmpId(user.getEmpId());
         getSession().update(userEdit);
-        updateUserRoles(user.getId(), role);
+        //updateUserRoles(user.getId(), role);
     }
 
     @Override
