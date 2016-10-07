@@ -10,7 +10,6 @@ import org.apache.camel.component.servlet.CamelHttpTransportServlet;
 
 
 @SpringBootApplication
-@EnableAutoConfiguration
 public class ServiceCamelApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {

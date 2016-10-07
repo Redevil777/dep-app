@@ -35,11 +35,8 @@ public class DepartmentController {
         RestTemplate restTemplate = new RestTemplate();
 
         try {
-            System.out.println("hello");
             Department[] departments = restTemplate.getForObject(DEPARTMENT_REST + "/all", Department[].class);
-            System.out.println(departments.length);
             User[] users = restTemplate.getForObject(USER_REST + "/all", User[].class);
-            System.out.println(users.length);
             Employee employee = CurrentEmployee.getEmployee();
             view.addObject("employee", employee);
             view.addObject("departments", departments);
@@ -95,7 +92,6 @@ public class DepartmentController {
                                              @PathVariable long id) {
 
         ModelAndView view = new ModelAndView("redirect:/department/all");
-        System.out.println(id);
 
         MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 
@@ -103,7 +99,6 @@ public class DepartmentController {
         map.add("userName", userName);
         Department department = new Department();
         department.setId(id);
-        System.out.println(department.getId());
 
         try {
             RestTemplate restTemplate = new RestTemplate();
